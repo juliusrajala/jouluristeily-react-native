@@ -1,11 +1,11 @@
-import { createStore } from 'redux';
+import { combineReducers,  createStore } from 'redux';
 
-import Navigation from './Navigation';
-import Cabins from './Cabins';
+import navigation from './Navigation';
+import cabins from './Cabins';
 
-const store = createStore (
-  Navigation,
-  Cabins
-)
+const store = combineReducers({
+  cabins,
+  navigation
+});
 
-export default store;
+export default createStore(store);

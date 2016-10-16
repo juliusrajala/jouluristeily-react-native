@@ -18,9 +18,7 @@ export const cabinActions = {
       { cabinNumber, cabinDescription });
   },
   removeCabin(cabinNumber){
-    return createAction(cabinActionsTypes.cabin_removed, {
-      cabinNumber
-    });
+    return createAction(cabinActionsTypes.cabin_removed, cabinNumber);
   }
 };
 
@@ -30,15 +28,18 @@ const initialState = Map({
 });
 
 function cabins(state=initialState, action) {
+  console.log(action);
   switch(action.type) {
     case cabinActionsTypes.cabin_added:
       // With immutable
-      return state.setIn(['cabins', action.payload.cabinNumber], action.payload);
+      // return state.setIn(['cabins', action.payload.cabinNumber], action.payload);
     case cabinActionsTypes.home_cabin:
-      return state.set('homeCabin', action.payload.cabinNumber);
+      // return state.set('homeCabin', action.payload.cabinNumber);
     case cabinActionsTypes.cabin_removed:
-      return state.set('cabins', state.cabins.filter(cabin => cabin.get('cabinNumber') !== action.payload.cabinNumber));
+      // return state.set('cabins', state.cabins.filter(cabin => cabin.get('cabinNumber') !== action.payload.cabinNumber));
     default:
       return state;
   }
 }
+
+export default cabins;
