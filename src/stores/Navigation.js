@@ -1,4 +1,5 @@
 // This store is for handling application navigation state.
+import { Map, List } from 'immutable';
 
 export const navigationActionTypes = {
   move_to_view: 'move_to_view',
@@ -27,10 +28,10 @@ export const navigationActions = {
     ({type: navigationActionTypes.last_view}),
 }
 
-const initialState = {
+const initialState = Map({
   currentView: viewTypes.home,
   lastView: []
-};
+});
 
 function navigation(state=initialState, action) {
   switch(action.type) {
