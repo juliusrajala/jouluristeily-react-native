@@ -17,6 +17,7 @@ export const viewTypes = {
 
 export const navigationActions = {
   moveToView(current, next){
+    console.log('Move to view called');
     return createAction(navigationActionTypes.move_to_view,
       { currentView: current, nextView: next });
   },
@@ -35,7 +36,7 @@ function navigation(state=initialState, action) {
     case navigationActionTypes.move_to_view:
       // TODO: Move currentView to top of lastViews list
       // TODO: Set currentView to payload.direction
-      return;
+      return state.set('currentView', action.payload.nextView);
     case navigationActionTypes.last_view:
       // TODO: Handle items done while backspace gets pressed.
       return;

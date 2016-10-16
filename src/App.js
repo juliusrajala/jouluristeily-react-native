@@ -8,15 +8,13 @@ import { View } from 'react-native';
 
 const App = React.createClass({
   componentDidMount(){
-    
+    console.log('App mounting', this.props.route.toJS())
   },
   render(){
-    console.log('Testing tools');
-    console.log('Props are', this.props)
     return(
       <View>
         <Navigation />
-        { AppRouter() }
+        { AppRouter(this.props.route.get('currentView')) }
       </View>
     )
   }
@@ -24,6 +22,5 @@ const App = React.createClass({
 
 export default connect(
   (state, props) => ({
-    state: state,
-    props: props
+    route: state.navigation
   }))(App);

@@ -11,7 +11,7 @@ const CabinView = React.createClass({
     return (
       <View>
         <Text style={styles.cabinTitle}>
-
+          Testing Cabins!
         </Text>
       </View>
     )
