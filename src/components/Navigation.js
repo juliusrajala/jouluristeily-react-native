@@ -13,13 +13,15 @@ const navigationItems = [
 ];
 
 const Navigation = ({ route, dispatch }) => {
+  console.log(route);
   const switchView = (destination) =>
     dispatch(navigationActions.moveToView(route, destination));
 
   return (
     <View style={styles.navigation}>
       { navigationItems.map((tab, i) => 
-          <NaviTab key={i} navItem={tab} action={switchView} />
+          <NaviTab key={i} active={ tab.get('tab') === route } 
+            navItem={tab} action={switchView} />
         )}
     </View>
   );
@@ -38,10 +40,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'firebrick',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    elevation: 4,
-    borderColor: 'transparent',
-    borderBottomColor: 'maroon',
-    borderWidth: 3
+    elevation: 4
   }
 });
 
