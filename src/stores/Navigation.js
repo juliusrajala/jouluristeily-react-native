@@ -16,12 +16,11 @@ export const viewTypes = {
 }
 
 export const navigationActions = {
-  moveToView = (current, next) => {
+  moveToView(current, next){
     return createAction(navigationActionTypes.move_to_view,
       { currentView: current, nextView: next });
-    }
   },
-  moveToLast = () => { 
+  moveToLast(/* */){ 
     return createAction(navigationActionTypes.last_view) 
   }
 }

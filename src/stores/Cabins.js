@@ -16,6 +16,11 @@ export const cabinActions = {
   addCabin(cabinNumber, cabinDescription) {
     return createAction(cabinActionsTypes.cabin_added,
       { cabinNumber, cabinDescription });
+  },
+  removeCabin(cabinNumber){
+    return createAction(cabinActionsTypes.cabin_removed, {
+      cabinNumber
+    });
   }
 };
 
@@ -29,18 +34,10 @@ function cabins(state=initialState, action) {
     case cabinActionsTypes.cabin_added:
       // With immutable
       return state.setIn(['cabins', action.payload.cabinNumber], action.payload);
-      // Without immutable
-      // return Object.assign({}, state, 
-      //   { 
-      //     cabins: [
-      //       {
-      //         cabinNumber: action.payload.cabinNumber, 
-      //         cabinDescription: action.payload.cabinDescription
-      //       },
-      //       ...state.cabins
-      //     ]});
     case cabinActionsTypes.home_cabin:
       return state.set('homeCabin', action.payload.cabinNumber);
+    case cabinActionsTypes.cabin_removed:
+      return state.set('cabins', state.cabins.filter(cabin => cabin.get('cabinNumber') !== action.payload.cabinNumber));
     default:
       return state;
   }
