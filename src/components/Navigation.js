@@ -1,34 +1,33 @@
-import React, { PropTyoes } from 'react';
+import React, { PropTypes } from 'react';
+import { Map } from 'immutable';
 import { connect } from 'react-redux';
+import NaviTab from './NaviTab';
 import { navigationActions } from '../stores/Navigation';
 
 import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
 
-const Navigation = React.createClass({
-  tabs: ['HOME', 'CABIN_MEMO', 'Tab 3'], // Placeholders to be caught from stores.
-  switchTab(location){
-    return this.props.dispatch(navigationActions.moveToView(this.props.route.get('currentView'), location));
-  },
-  componentWillMount(){
-    console.log('Navigation will mount', this.props)
-  },
-  render() {
-    return (
-      // TODO: Move navigationTab into a component of its own.
-      <View style={styles.navigation}>
-      { this.tabs.map((tab, i) => 
-          <TouchableHighlight 
-            key={i} 
-            style={ styles.navigationTab }
-            onPress={() => this.switchTab(tab) }>
-            <Text>{tab} {i}</Text>
-          </TouchableHighlight>
-        )
-      }
-      </View>
-    );
-  }
-});
+const navigationItems = [
+  Map({name: 'Ohjelma', tab: 'HOME'}),
+  Map({name: 'Hytit', tab: 'CABINS'}),
+  Map({name: 'Kartta', tab: 'MAP'})
+];
+
+const Navigation = ({ route, dispatch }) => {
+  const switchView = (destination) =>
+    dispatch(navigationActions.moveToView(route, destination));
+
+  return (
+    <View style={styles.navigation}>
+      { navigationItems.map((tab, i) => 
+          <NaviTab key={i} navItem={tab} action={switchView} />
+        )}
+    </View>
+  );
+}
+
+Navigation.propTypes = {
+  route: PropTypes.string
+}
 
 const styles = StyleSheet.create({
   navigation: {
@@ -36,16 +35,17 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: '#eee',
+    backgroundColor: 'firebrick',
     flexDirection: 'row',
-    justifyContent: 'space-around'
-  },
-  navigationTab: {
-    height: 30
+    justifyContent: 'space-around',
+    elevation: 4,
+    borderColor: 'transparent',
+    borderBottomColor: 'maroon',
+    borderWidth: 3
   }
 });
 
 export default connect(
-  (state, props) => ({
-    route: state.navigation
+  (state, props) => ({ 
+    route: state.navigation.get('currentView') 
   }))(Navigation);

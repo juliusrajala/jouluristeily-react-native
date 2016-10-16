@@ -12,7 +12,7 @@ export const viewTypes = {
   home: 'HOME',
   map: 'MAP',
   schedule: 'SCHEDULE',
-  cabin_memo: 'CABIN_MEMO'
+  cabin_memo: 'CABINS'
 }
 
 export const navigationActions = {

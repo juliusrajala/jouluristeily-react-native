@@ -4,9 +4,11 @@ import CabinView from '../components/CabinView';
 
 export default function AppRouter(view, props){
   switch(view){
-    case 'CABIN_MEMO':
+    case 'CABINS':
       console.log('Moving to cabin view');
       return <CabinView props />
+    case 'SCHEDULE':
+    case 'MAP':
     default:
       return <LandingView props />;
   }
