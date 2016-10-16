@@ -5,6 +5,7 @@
  */
 
 import React, { Component } from 'react';
+import Navigation from './src/components/Navigation';
 import {
   AppRegistry,
   StyleSheet,
@@ -16,8 +17,9 @@ class jouluristeilyReactNative extends Component {
   render() {
     return (
       <View style={styles.container}>
+      <Navigation />
         <Text style={styles.welcome}>
-          Welcome to React Native!
+          Jouluristeily 2016 Ooooh yeah!
         </Text>
         <Text style={styles.instructions}>
           To get started, edit index.android.js
