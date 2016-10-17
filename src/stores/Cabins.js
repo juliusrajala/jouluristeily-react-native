@@ -15,7 +15,7 @@ export const cabinActions = {
   },
   addCabin(cabinNumber, cabinDescription) {
     return createAction(cabinActionsTypes.cabin_added,
-      { cabinNumber, cabinDescription });
+      Map({ cabinNumber, cabinDescription }));
   },
   removeCabin(cabinNumber){
     return createAction(cabinActionsTypes.cabin_removed, cabinNumber);

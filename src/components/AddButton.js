@@ -10,11 +10,11 @@ import {
   StyleSheet
 } from 'react-native';
 
-const AddCabinButton = ({action, target}) => {
+const AddCabinButton = ({action, faded, target}) => {
   return (
     <TouchableOpacity 
       onPress={() => action(target)}
-      style={styles.addButton}>
+      style={[styles.addButton, faded && {opacity: .5}]}>
       <Text style={styles.addButtonLabel}>+</Text>
     </TouchableOpacity>
   )

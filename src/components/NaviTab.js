@@ -12,11 +12,7 @@ const NaviTab = ({ navItem, action, active }) => {
         style={ styles.navigationLabel }>
       { navItem.get('name') }
       </Text>
-      { active &&
-        <View 
-          style={ styles.activeTab }
-        ></View>
-      }
+      { active && <View style={ styles.activeTab }></View> }
     </TouchableOpacity>
   );
 }

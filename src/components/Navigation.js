@@ -13,12 +13,11 @@ const navigationItems = [
 ];
 
 const Navigation = ({ route, dispatch }) => {
-  console.log(route);
   const switchView = (destination) =>
     dispatch(navigationActions.moveToView(route, destination));
 
   return (
-    <View style={styles.navigation}>
+    <View style={ styles.navigation }>
       { navigationItems.map((tab, i) => 
           <NaviTab key={i} active={ tab.get('tab') === route } 
             navItem={tab} action={switchView} />
@@ -46,5 +45,5 @@ const styles = StyleSheet.create({
 
 export default connect(
   (state, props) => ({ 
-    route: state.navigation.get('currentView') 
+    route: state.navigation.get('currentView'),
   }))(Navigation);
