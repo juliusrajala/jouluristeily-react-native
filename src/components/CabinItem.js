@@ -45,8 +45,8 @@ const styles = StyleSheet.create({
     marginRight: 10,
     elevation: 1,
     backgroundColor: 'white',
-    padding: 30,
-    paddingLeft: 30
+    padding: 35,
+    paddingTop: 25
   },
   cabinListItemActions: {
     width: 150,
@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
   cabinListItemLabel: {
     fontWeight: '900',
     color: 'firebrick',
+    fontSize: 18,
     paddingBottom: 5
   },
   cabinListItemDescription: {
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
     top: 0,
     bottom: 0,
     backgroundColor: 'firebrick',
-    width: 10,
+    width: 5,
     elevation: 1
   }
 })

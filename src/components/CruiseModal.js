@@ -1,8 +1,14 @@
 import React, { PropTypes } from 'react';
+import {connect } from 'react-redux';
+
+// TODO: Turn into a stateful component
+// Move most items from CabinView props to here.
+// Use react-redux connect to connect this to adding modals instead.
 
 import {
   View,
   Text,
+  TextInput,
   TouchableOpacity,
   Modal,
   StyleSheet
@@ -28,7 +34,21 @@ const CruiseModal = ({modalId, visible, action, title, description, children}) =
           <Text style={styles.modalDescription}>
             {description || 'Lisää kuvaus'}
           </Text>
-            {children}
+
+          <Text style={styles.modalFieldLabel}>
+            Hyttinumero:
+          </Text>
+          <TextInput
+            style={styles.modalField}
+            onChangeText={(text) => this.setState({text})}/>
+
+          <Text style={styles.modalFieldLabel}>
+            Hyttikuvaus:
+          </Text>
+          <TextInput
+            style={styles.modalField}
+            onChangeText={(text) => this.setState({text})}/>
+
           <TouchableOpacity
             style={styles.closeModal}
             onPress={() => action(modalId) }>
@@ -63,9 +83,8 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     backgroundColor: '#f2f2f2',
-    alignItems: 'center',
     elevation: 4,
-    padding: 20
+    padding: 40
   },
   modalHeader: {
     alignItems: 'center',
@@ -80,11 +99,20 @@ const styles = StyleSheet.create({
   },
   closeModalLabel: {
     position: 'relative',
-    right: 0,
-    bottom: 0,
+    textAlign: 'right',
+    marginTop: 20,
     fontSize: 15,
     fontWeight: '600',
     color: 'firebrick'
+  },
+  modalFieldLabel: {
+    marginTop: 15
+  },
+  modalField: {
+    height: 40,
+    color: 'gray',
+    borderColor: 'gainsboro', 
+    borderWidth: 1
   }
 });
 
