@@ -10,16 +10,19 @@ import {
   StyleSheet
 } from 'react-native';
 
-const AddCabinButton = ({action}) => {
+const AddCabinButton = ({action, target}) => {
   return (
-    <TouchableOpacity style={styles.addButton}>
+    <TouchableOpacity 
+      onPress={() => action(target)}
+      style={styles.addButton}>
       <Text style={styles.addButtonLabel}>+</Text>
     </TouchableOpacity>
   )
 };
 
 AddCabinButton.propTypes = {
-  action: PropTypes.func
+  action: PropTypes.func,
+  target: PropTypes.string
 };
 
 

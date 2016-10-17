@@ -1,8 +1,10 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { modalActions } from '../stores/Modals';
 
 import CabinItem from './CabinItem';
 import AddButton from './AddButton';
+import CruiseModal from './CruiseModal';
 
 import {
   View,
@@ -25,9 +27,18 @@ const testCabins = [
   '0191', '5530', '6520'
 ];
 
-const CabinView = ({ cabins }) => {
+const CabinView = ({ cabins, modals, dispatch }) => {
   console.log('cabins', cabins.toJS());
+  console.log('modals', modals.toJS());
   const myCabins = testCabins;
+  const addCabinModalId = 'AddCabinModal';
+  const editCabinModalId = 'EditCabinModal';
+
+  const openModal = (modalId) => 
+    dispatch(modalActions.openModal(modalId));
+
+  const closeModal = (modalId) =>
+    dispatch(modalActions.closeModal(modalId));
 
   return (
     <View style={styles.CabinView}>
@@ -46,7 +57,13 @@ const CabinView = ({ cabins }) => {
         }
         </ScrollView>
       }
-      <AddButton />
+      <AddButton action={openModal} target={addCabinModalId} />
+      <CruiseModal
+        modalId={addCabinModalId}
+        action={closeModal}
+        visible={ modals.getIn(['modals', addCabinModalId]) || false }
+        title="Title"
+        />
     </View>
   )
 };
@@ -87,6 +104,7 @@ const styles = StyleSheet.create({
 
 export default connect(
   (state, props) => ({
-    cabins: state.cabins
+    cabins: state.cabins,
+    modals: state.modals
   })
 )(CabinView);

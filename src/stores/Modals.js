@@ -16,15 +16,19 @@ export const modalActions = {
 };
 
 const initialState = Map({
-  modals: {}
+  modals: Map({})
 });
 
 function modals(state=initialState, action){
   switch(action.type){
     case modalActionTypes.open_modal:
-      return state.setIn(['modals', action.payload.modalId], true);
+      console.log('modalStore', state.toJS())
+      console.log('payload', action.payload)
+      return state.setIn(['modals', action.payload], true);
     case modalActionTypes.close_modal:
-      return state.setIn(['modals', action.payload.modalId], false);
+      return state.setIn(['modals', action.payload], false);
+    default:
+      return state;
   }
 }
 
