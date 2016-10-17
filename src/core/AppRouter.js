@@ -10,6 +10,6 @@ export default function AppRouter(view, props){
     case 'SCHEDULE':
     case 'MAP':
     default:
-      return <LandingView props />;
+      return <CabinView props />;
   }
 }
