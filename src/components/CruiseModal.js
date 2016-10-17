@@ -48,13 +48,15 @@ CruiseModal.propTypes = {
 
 const styles = StyleSheet.create({
   addCabinModalContainer: {
+    marginTop: 100,
     position: 'absolute',
-    left: 0,
-    right: 0,
+    left: 10,
+    right: 10,
     top: 100,
     bottom: 0
   },
   addCabinModal: {
+    marginTop: 100,
     backgroundColor: 'ivory'
   }
 });

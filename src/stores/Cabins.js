@@ -24,7 +24,7 @@ export const cabinActions = {
 
 const initialState = Map({
   homeCabin: '****',
-  cabins: {}
+  cabins: Map({})
 });
 
 function cabins(state=initialState, action) {
