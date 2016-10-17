@@ -24,7 +24,7 @@ export const cabinActions = {
 
 const initialState = Map({
   homeCabin: '****',
-  cabins: {}
+  cabins: Map({})
 });
 
 function cabins(state=initialState, action) {
@@ -32,11 +32,11 @@ function cabins(state=initialState, action) {
   switch(action.type) {
     case cabinActionsTypes.cabin_added:
       // With immutable
-      // return state.setIn(['cabins', action.payload.cabinNumber], action.payload);
+      return state.setIn(['cabins', action.payload.cabinNumber], action.payload);
     case cabinActionsTypes.home_cabin:
       // return state.set('homeCabin', action.payload.cabinNumber);
     case cabinActionsTypes.cabin_removed:
-      // return state.set('cabins', state.cabins.filter(cabin => cabin.get('cabinNumber') !== action.payload.cabinNumber));
+      return state.set('cabins', state.cabins.filter(cabin => cabin.get('cabinNumber') !== action.payload.cabinNumber));
     default:
       return state;
   }
