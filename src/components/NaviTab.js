@@ -12,11 +12,7 @@ const NaviTab = ({ navItem, action, active }) => {
         style={ styles.navigationLabel }>
       { navItem.get('name') }
       </Text>
-      { active &&
-        <View 
-          style={ styles.activeTab }
-        ></View>
-      }
+      { active && <View style={ styles.activeTab }></View> }
     </TouchableOpacity>
   );
 }
@@ -29,12 +25,13 @@ NaviTab.propTypes = {
 
 const styles = StyleSheet.create({
   navigationTab: {
-    height: 80,
+    height: 70,
     flex: 0.33,
     justifyContent: 'space-around'
   },
   navigationLabel: {
-    fontSize: 20,
+
+    fontSize: 18,
     textAlign: 'center',
     color: 'white',
     fontWeight: '200'

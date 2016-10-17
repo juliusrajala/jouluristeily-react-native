@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { modalActions } from '../stores/Modals';
+import { cabinActions } from '../stores/Cabins';
 
 import CabinItem from './CabinItem';
 import AddButton from './AddButton';
@@ -14,23 +15,8 @@ import {
   StyleSheet
 } from 'react-native';
 
-const testCabins = [
-  // '4531', '5531', '6528',
-  // '4532', '5532', '6527',
-  // '4533', '5533', '6526',
-  // '4534', '5534', '6525',
-  // '1275', '5535', '6524',
-  // '1276', '5536', '6523',
-  // '1277', '5537', '6522',
-  // '1278', '5538', '6521',
-  // '1232', '5539', '6529',
-  '0191', '5530', '6520'
-];
-
 const CabinView = ({ cabins, modals, dispatch }) => {
-  console.log('cabins', cabins.toJS());
-  console.log('modals', modals.toJS());
-  const myCabins = testCabins;
+  const readyCabins = cabins.get('cabins');
   const addCabinModalId = 'AddCabinModal';
   const editCabinModalId = 'EditCabinModal';
 
@@ -38,31 +24,40 @@ const CabinView = ({ cabins, modals, dispatch }) => {
     dispatch(modalActions.openModal(modalId));
 
   const closeModal = (modalId) =>
-    dispatch(modalActions.closeModal(modalId));
+    Promise.resolve(dispatch(modalActions.closeModal(modalId)))
+      .then(dispatch(dispatch(cabinActions.addCabin('4812', 'Test'))));
 
   return (
     <View style={styles.CabinView}>
-      <View style={styles.cabinViewHeader}>
-        <Text style={styles.cabinTitle}>
-          Hyttimuistio
-        </Text>
-      </View>
-      { myCabins.length > 0 &&
-        <ScrollView
+
+      { readyCabins.size > 0 
+        ? <ScrollView
           style={styles.cabinList}
         >
-        { myCabins.map((cabin, i) => 
-          <CabinItem key={cabin} cabin={cabin} />
+        { readyCabins.map((cabin, i) => 
+          <CabinItem 
+            key={cabin.get('cabinNumber')} 
+            cabinNumber={cabin.get('cabinNumber')} 
+            cabinDescription={cabin.get('cabinDescription')} />
           )
         }
         </ScrollView>
+        : <View style={styles.cabinViewPlaceholder}>
+        <Text style={styles.placeholderText}>
+          Sinulla ei ole tallennettuja hyttejä. Voit lisätä hyttejä painamalla nappia.
+        </Text>
+      </View>
       }
-      <AddButton action={openModal} target={addCabinModalId} />
+      <AddButton 
+        action={openModal} 
+        target={addCabinModalId} />
+
       <CruiseModal
         modalId={addCabinModalId}
         action={closeModal}
         visible={ modals.getIn(['modals', addCabinModalId]) || false }
-        title="Title"
+        title="Lisää hytti"
+        description="Kirjoita haluamasi hytin numero ja kuvaus ja paina sitten valmis."
         />
     </View>
   )
@@ -81,19 +76,17 @@ const styles = StyleSheet.create({
     top: 0,
     backgroundColor: '#2f2f2f'
   },
-  cabinViewHeader: {
-    alignItems: 'center'
+  cabinViewPlaceholder: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1
   },
-  cabinTitle: {
-    left: 0,
-    right: 0,
-    padding: 5,
-    fontSize: 25,
+  placeholderText: {
+    justifyContent: 'center',
+    textAlign: 'center',
+    fontSize: 16,
     fontWeight: '200',
-    borderBottomWidth: 3,
-    borderStyle: 'solid',
-    borderBottomColor: 'black',
-    color: 'white'
+    color: 'gainsboro'
   },
   cabinList: {
     flex: 1,

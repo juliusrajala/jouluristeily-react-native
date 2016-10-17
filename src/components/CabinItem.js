@@ -8,7 +8,7 @@ import {
   StyleSheet
 } from 'react-native';
 
-const CabinItem = ({cabin}) => {
+const CabinItem = ({cabinNumber, cabinDescription}) => {
   return (
     <View 
       style={ styles.cabinListItem }
@@ -22,11 +22,11 @@ const CabinItem = ({cabin}) => {
         </TouchableOpacity>
       </View>
       <Text style={styles.cabinListItemLabel}>
-        Hytti: {cabin}
+        Hytti: {cabinNumber}
       </Text>
       <Text
         style={styles.cabinListItemDescription}>
-        This is a cabin description for cabin {cabin}.
+        {cabinDescription}
       </Text>
       <View style={styles.cabinListItemHighlight}></View>
     </View>
@@ -34,18 +34,19 @@ const CabinItem = ({cabin}) => {
 }
 
 CabinItem.propTypes = {
-
+  cabinNumber: PropTypes.string,
+  cabinDescription: PropTypes.string
 };
 
 const styles = StyleSheet.create({
   cabinListItem: {
-    margin: 5,
-    marginLeft: 20,
-    marginRight: 20,
+    margin: 10,
+    marginLeft: 10,
+    marginRight: 10,
     elevation: 1,
     backgroundColor: 'white',
-    padding: 20,
-    paddingLeft: 20
+    padding: 35,
+    paddingTop: 25
   },
   cabinListItemActions: {
     width: 150,
@@ -61,6 +62,7 @@ const styles = StyleSheet.create({
   cabinListItemLabel: {
     fontWeight: '900',
     color: 'firebrick',
+    fontSize: 18,
     paddingBottom: 5
   },
   cabinListItemDescription: {
@@ -72,7 +74,7 @@ const styles = StyleSheet.create({
     top: 0,
     bottom: 0,
     backgroundColor: 'firebrick',
-    width: 10,
+    width: 5,
     elevation: 1
   }
 })
