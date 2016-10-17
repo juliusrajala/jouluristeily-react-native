@@ -6,7 +6,6 @@ import CabinItem from './CabinItem';
 import {
   View,
   Text,
-  ScrollView,
   TouchableOpacity,
   StyleSheet
 } from 'react-native';
@@ -30,17 +29,17 @@ const styles = StyleSheet.create({
     right: 20,
     bottom: 20,
     alignItems: 'center',
-    width: 70,
-    height: 70,
+    width: 60,
+    height: 60,
     borderRadius: 50,
     backgroundColor: 'firebrick',
-    elevation: 3,
+    elevation: 2,
     justifyContent: 'center'
   },
   addButtonLabel: {
     justifyContent: 'center',
     fontSize: 40,
-    fontWeight: '500',
+    fontWeight: '200',
     color: 'white'
   },
 })

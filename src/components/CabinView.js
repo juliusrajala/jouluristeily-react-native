@@ -4,11 +4,6 @@ import { connect } from 'react-redux';
 import CabinItem from './CabinItem';
 import AddButton from './AddButton';
 
-// TODO: 
-// - List of cabins rendered from store
-// - Cabin Component
-
-
 import {
   View,
   Text,
@@ -18,15 +13,15 @@ import {
 } from 'react-native';
 
 const testCabins = [
-  '4531', '5531', '6528',
-  '4532', '5532', '6527',
-  '4533', '5533', '6526',
-  '4534', '5534', '6525',
-  '1275', '5535', '6524',
-  '1276', '5536', '6523',
-  '1277', '5537', '6522',
-  '1278', '5538', '6521',
-  '1232', '5539', '6529',
+  // '4531', '5531', '6528',
+  // '4532', '5532', '6527',
+  // '4533', '5533', '6526',
+  // '4534', '5534', '6525',
+  // '1275', '5535', '6524',
+  // '1276', '5536', '6523',
+  // '1277', '5537', '6522',
+  // '1278', '5538', '6521',
+  // '1232', '5539', '6529',
   '0191', '5530', '6520'
 ];
 
@@ -36,9 +31,11 @@ const CabinView = ({ cabins }) => {
 
   return (
     <View style={styles.CabinView}>
-      <Text style={styles.cabinTitle}>
-        Hyttimuistio
-      </Text>
+      <View style={styles.cabinViewHeader}>
+        <Text style={styles.cabinTitle}>
+          Hyttimuistio
+        </Text>
+      </View>
       { myCabins.length > 0 &&
         <ScrollView
           style={styles.cabinList}
@@ -61,19 +58,30 @@ CabinView.propTypes = {
 const styles = StyleSheet.create({
   CabinView: {
     flex: 1,
-    alignItems: 'center',
     bottom: 0,
     left: 0,
     right: 0,
-    top: 0
+    top: 0,
+    backgroundColor: '#2f2f2f'
+  },
+  cabinViewHeader: {
+    alignItems: 'center'
   },
   cabinTitle: {
-    padding: 20,
+    left: 0,
+    right: 0,
+    padding: 5,
     fontSize: 25,
-    fontWeight: '400'
+    fontWeight: '200',
+    borderBottomWidth: 3,
+    borderStyle: 'solid',
+    borderBottomColor: 'black',
+    color: 'white'
   },
   cabinList: {
-    flex: 1
+    flex: 1,
+    left: 0,
+    right: 0,
   }
 });
 
