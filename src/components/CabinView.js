@@ -17,15 +17,13 @@ import {
 
 const CabinView = ({ cabins, modals, dispatch }) => {
   const readyCabins = cabins.get('cabins');
+
+  console.log('cabins are', cabins.toJS())
   const addCabinModalId = 'AddCabinModal';
   const editCabinModalId = 'EditCabinModal';
 
   const openModal = (modalId) => 
     dispatch(modalActions.openModal(modalId));
-
-  const closeModal = (modalId) =>
-    Promise.resolve(dispatch(modalActions.closeModal(modalId)))
-      .then(dispatch(dispatch(cabinActions.addCabin('4812', 'Test'))));
 
   return (
     <View style={styles.CabinView}>
@@ -54,11 +52,7 @@ const CabinView = ({ cabins, modals, dispatch }) => {
 
       <CruiseModal
         modalId={addCabinModalId}
-        action={closeModal}
-        visible={ modals.getIn(['modals', addCabinModalId]) || false }
-        title="Lisää hytti"
-        description="Kirjoita haluamasi hytin numero ja kuvaus ja paina sitten valmis."
-        />
+        visible={ modals.getIn(['modals', addCabinModalId]) || false }/>
     </View>
   )
 };

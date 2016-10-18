@@ -1,6 +1,9 @@
 import React, { PropTypes } from 'react';
 import {connect } from 'react-redux';
 
+import { cabinActions } from '../stores/Cabins';
+import { modalActions } from '../stores/Modals';
+
 // TODO: Turn into a stateful component
 // Move most items from CabinView props to here.
 // Use react-redux connect to connect this to adding modals instead.
@@ -14,61 +17,80 @@ import {
   StyleSheet
 } from 'react-native';
 
-const CruiseModal = ({modalId, visible, action, title, description, children}) => {
-  return (
-    <View style={visible && styles.modalContainer}>
-      <Modal
-        style={styles.modalContainer}
-        animationType={"slide"}
-        transparent={true}
-        visible={visible}
-        onRequestClose={() => {console.log('Modal closed')}}>
+// Props:
+// modalId, visible, action, title, description, children
 
-        <View
-          style={styles.modalHeader}>
-          <Text style={styles.modalTitle}>{title || 'Needs title'}</Text>
-        </View>
-        
-        <View
-          style={styles.modalContent}>
-          <Text style={styles.modalDescription}>
-            {description || 'Lisää kuvaus'}
-          </Text>
+const CruiseModal = React.createClass({
+  componentWillMount(){
+    console.log(this.props);
+  },
+  getInitialState(){
+    return {
+      cabinNumber: '',
+      cabinDescription: ''
+    }
+  },
+  closeModal(){
+    if(!this.state.cabinNumber || !this.state.cabinDescription)
+      return this.props.dispatch(modalActions.closeModal(this.props.modalId));
 
-          <Text style={styles.modalFieldLabel}>
-            Hyttinumero:
-          </Text>
-          <TextInput
-            style={styles.modalField}
-            onChangeText={(text) => this.setState({text})}/>
+    return Promise.resolve(this.props.dispatch(cabinActions.addCabin(this.state.cabinNumber, this.state.cabinDescription)))
+      .then(this.props.dispatch(modalActions.closeModal(this.props.modalId)));
+  },
+  render(){
+    return (
+      <View>
+        <Modal
+          style={styles.modalContainer}
+          animationType={"slide"}
+          transparent={true}
+          visible={this.props.visible}
+          onRequestClose={() => {console.log('Modal closed')}}>
 
-          <Text style={styles.modalFieldLabel}>
-            Hyttikuvaus:
-          </Text>
-          <TextInput
-            style={styles.modalField}
-            onChangeText={(text) => this.setState({text})}/>
-
-          <TouchableOpacity
-            style={styles.closeModal}
-            onPress={() => action(modalId) }>
-            <Text
-              style={styles.closeModalLabel}>
-              VALMIS
+          <View
+            style={styles.modalHeader}>
+            <Text style={styles.modalTitle}>Lisää hytti</Text>
+          </View>
+          
+          <View
+            style={styles.modalContent}>
+            <Text style={styles.modalDescription}>
+              Kirjoita haluamasi hytin numero ja kuvaus ja paina sitten valmis.
             </Text>
-          </TouchableOpacity>
-        </View>
-      </Modal>
-    </View>
-  );
-};
+
+            <Text style={styles.modalFieldLabel}>
+              Hyttinumero:
+            </Text>
+            <TextInput
+              style={styles.modalField}
+              onChangeText={(text) => this.setState({cabinNumber: text})}/>
+
+            <Text style={styles.modalFieldLabel}>
+              Hyttikuvaus:
+            </Text>
+            <TextInput
+              style={styles.modalField}
+              onChangeText={(text) => this.setState({cabinDescription: text})}/>
+
+            <TouchableOpacity
+              style={styles.closeModal}
+              onPress={() => this.closeModal() }>
+              <Text
+                style={styles.closeModalLabel}>
+                VALMIS
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+      </View>
+    );
+  }
+});
 
 CruiseModal.propTypes = {
   modalId: PropTypes.string.isRequired,
   visible: PropTypes.bool.isRequired,
-  action: PropTypes.func.isRequired,
-  title: PropTypes.string,
-  children: PropTypes.node
+  dispatch: PropTypes.func.isRequired
 };
 
 const styles = StyleSheet.create({
@@ -106,7 +128,8 @@ const styles = StyleSheet.create({
     color: 'firebrick'
   },
   modalFieldLabel: {
-    marginTop: 15
+    marginTop: 15,
+    fontWeight: '600'
   },
   modalField: {
     height: 40,
@@ -116,4 +139,6 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CruiseModal;
+export default connect(
+
+)(CruiseModal);

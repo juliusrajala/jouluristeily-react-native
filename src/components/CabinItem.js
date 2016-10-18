@@ -46,7 +46,8 @@ const styles = StyleSheet.create({
     elevation: 1,
     backgroundColor: 'white',
     padding: 35,
-    paddingTop: 25
+    paddingTop: 25,
+    borderRadius: 3
   },
   cabinListItemActions: {
     width: 150,

@@ -32,7 +32,8 @@ function cabins(state=initialState, action) {
   switch(action.type) {
     case cabinActionsTypes.cabin_added:
       // With immutable
-      return state.setIn(['cabins', action.payload.cabinNumber], action.payload);
+      console.log('action payload', action.payload.toJS())
+      return state.setIn(['cabins', action.payload.get('cabinNumber')], action.payload);
     case cabinActionsTypes.home_cabin:
       // return state.set('homeCabin', action.payload.cabinNumber);
     case cabinActionsTypes.cabin_removed:
