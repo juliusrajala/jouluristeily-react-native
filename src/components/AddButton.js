@@ -10,12 +10,15 @@ import {
   StyleSheet
 } from 'react-native';
 
+import Icon from 'react-native-vector-icons/EvilIcons';
+
+
 const AddCabinButton = ({action, faded, target}) => {
   return (
     <TouchableOpacity 
       onPress={() => action(target)}
       style={[styles.addButton, faded && {opacity: .5}]}>
-      <Text style={styles.addButtonLabel}>+</Text>
+      <Icon style={ styles.addButtonLabel } name="plus" color="#fff"/>
     </TouchableOpacity>
   )
 };
@@ -35,15 +38,15 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 50,
-    backgroundColor: 'firebrick',
     elevation: 2,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: 'white'
   },
   addButtonLabel: {
     justifyContent: 'center',
-    fontSize: 40,
+    fontSize: 50,
     fontWeight: '200',
-    color: 'white'
+    color: 'firebrick'
   },
 })
 

@@ -7,16 +7,17 @@ import {
   TouchableOpacity,
   StyleSheet
 } from 'react-native';
+import Icon from 'react-native-vector-icons/EvilIcons';
 
 const CabinItem = ({cabinNumber, cabinDescription}) => {
   return (
     <View style={ styles.cabinListItem }>
       <View style={ styles.cabinListItemActions }>
         <TouchableOpacity>
-        <Text style={ styles.cabinListItemActionButton }>Muokkaa</Text>
+          <Icon style={ styles.cabinListItemActionButton } name="pencil" size={ 20 } />
         </TouchableOpacity>
         <TouchableOpacity>
-        <Text style={ styles.cabinListItemActionButton }>Poista</Text>
+          <Icon style={ styles.cabinListItemActionButton } name="close" size={ 20 } />
         </TouchableOpacity>
       </View>
       <Text style={styles.cabinListItemLabel}>
@@ -45,7 +46,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 35,
     paddingTop: 25,
-    borderRadius: 3
+    borderRadius: 3,
+    position: 'relative'
   },
   cabinListItemActions: {
     width: 150,
@@ -56,16 +58,14 @@ const styles = StyleSheet.create({
   },
   cabinListItemActionButton: {
     flex: 1,
-    padding: 5
+    margin: 5,
+    justifyContent: 'flex-end'
   },
   cabinListItemLabel: {
     fontWeight: '900',
     color: 'firebrick',
     fontSize: 18,
     paddingBottom: 5
-  },
-  cabinListItemDescription: {
-
   },
   cabinListItemHighlight: {
     position: 'absolute',

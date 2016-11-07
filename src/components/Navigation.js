@@ -4,12 +4,14 @@ import { connect } from 'react-redux';
 import NaviTab from './NaviTab';
 import { navigationActions } from '../stores/Navigation';
 
-import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/EvilIcons';
 
 const navigationItems = [
-  Map({name: 'Ohjelma', tab: 'HOME'}),
-  Map({name: 'Hytit', tab: 'CABINS'}),
-  Map({name: 'Kartta', tab: 'MAP'})
+  Map({name: 'Ohjelma', tab: 'HOME', icon: 'clock'}),
+  Map({name: 'Hytit', tab: 'CABINS', icon: 'heart'}),
+  Map({name: 'Kartta', tab: 'MAP', icon: 'location'}),
+  Map({name: 'Menu', tab: 'MENU', icon: 'navicon'})
 ];
 
 const Navigation = ({ route, dispatch }) => {
@@ -21,7 +23,8 @@ const Navigation = ({ route, dispatch }) => {
       { navigationItems.map((tab, i) => 
           <NaviTab key={i} active={ tab.get('tab') === route } 
             navItem={tab} action={switchView} />
-        )}
+        )
+      }
     </View>
   );
 }

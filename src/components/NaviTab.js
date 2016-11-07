@@ -1,17 +1,17 @@
 import React, { PropTypes } from 'react';
 
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/EvilIcons';
+
 
 const NaviTab = ({ navItem, action, active }) => {
-  console.log('active', active);
+  const icon = navItem.get('icon');
+
   return(
     <TouchableOpacity
       onPress={ () => action(navItem.get('tab')) }
       style={ styles.navigationTab }>
-      <Text
-        style={ styles.navigationLabel }>
-      { navItem.get('name') }
-      </Text>
+      <Icon style={ styles.navigationIcon } name={ icon } size={ 30 } color="#fff"/>
       { active && <View style={ styles.activeTab }></View> }
     </TouchableOpacity>
   );
@@ -26,18 +26,24 @@ NaviTab.propTypes = {
 const styles = StyleSheet.create({
   navigationTab: {
     height: 70,
-    flex: 0.33,
+    flex: 1,
     justifyContent: 'space-around'
   },
   navigationLabel: {
-
-    fontSize: 18,
+    fontSize: 12,
     textAlign: 'center',
+    justifyContent: 'flex-start',
     color: 'white',
     fontWeight: '200'
   },
+  navigationIcon: {
+    fontSize: 40,
+    textAlign: 'center',
+    justifyContent: 'flex-end',
+    color: 'white'
+  },
   activeTab: {
-    height: 5,
+    height: 3,
     backgroundColor: 'maroon',
     position: 'absolute',
     bottom: 0,
