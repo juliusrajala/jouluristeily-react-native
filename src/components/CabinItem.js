@@ -10,9 +10,7 @@ import {
 
 const CabinItem = ({cabinNumber, cabinDescription}) => {
   return (
-    <View 
-      style={ styles.cabinListItem }
-      >
+    <View style={ styles.cabinListItem }>
       <View style={ styles.cabinListItemActions }>
         <TouchableOpacity>
         <Text style={ styles.cabinListItemActionButton }>Muokkaa</Text>
