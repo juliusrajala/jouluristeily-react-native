@@ -1,5 +1,5 @@
 // This store is for storing cabin data.
-import { Map, List } from 'immutable';
+import { fromJS, Map, List } from 'immutable';
 import createAction from '../utils/createAction';
 
 export const cabinActionsTypes = {
@@ -10,9 +10,6 @@ export const cabinActionsTypes = {
 };
 
 export const cabinActions = {
-  setHomeCabin(cabinNumber){
-    return createAction(cabinActionsTypes.home_cabin, cabinNumber);
-  },
   addCabin(cabinNumber, cabinDescription) {
     return createAction(cabinActionsTypes.cabin_added,
       Map({ cabinNumber, cabinDescription }));
@@ -22,9 +19,9 @@ export const cabinActions = {
   }
 };
 
-const initialState = Map({
+const initialState = fromJS({
   homeCabin: '****',
-  cabins: Map({})
+  cabins: {}
 });
 
 function cabins(state=initialState, action) {
@@ -34,8 +31,6 @@ function cabins(state=initialState, action) {
       // With immutable
       console.log('action payload', action.payload.toJS())
       return state.setIn(['cabins', action.payload.get('cabinNumber')], action.payload);
-    case cabinActionsTypes.home_cabin:
-      // return state.set('homeCabin', action.payload.cabinNumber);
     case cabinActionsTypes.cabin_removed:
       return state.set('cabins', state.cabins.filter(cabin => cabin.get('cabinNumber') !== action.payload.cabinNumber));
     default:

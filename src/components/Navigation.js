@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Map } from 'immutable';
+import { fromJS } from 'immutable';
 import { connect } from 'react-redux';
 import NaviTab from './NaviTab';
 import { navigationActions } from '../stores/Navigation';
@@ -7,12 +7,12 @@ import { navigationActions } from '../stores/Navigation';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
-const navigationItems = [
-  Map({name: 'Ohjelma', tab: 'HOME', icon: 'clock'}),
-  Map({name: 'Hytit', tab: 'CABINS', icon: 'heart'}),
-  Map({name: 'Kartta', tab: 'MAP', icon: 'location'}),
-  Map({name: 'Menu', tab: 'MENU', icon: 'navicon'})
-];
+const navigationItems = fromJS([
+  {name: 'Ohjelma', tab: 'SCHEDULE', icon: 'clock'},
+  {name: 'Hytit', tab: 'CABINS', icon: 'heart'},
+  {name: 'Kartta', tab: 'MAP', icon: 'location'},
+  {name: 'Menu', tab: 'MENU', icon: 'navicon'}
+]);
 
 const Navigation = ({ route, dispatch }) => {
   const switchView = (destination) =>

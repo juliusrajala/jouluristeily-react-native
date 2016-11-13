@@ -8,7 +8,8 @@ import schedules from './Schedules';
 const store = combineReducers({
   cabins,
   navigation,
-  modals
+  modals,
+  schedules
 });
 
 export default createStore(store);

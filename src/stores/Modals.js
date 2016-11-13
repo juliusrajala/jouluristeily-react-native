@@ -1,4 +1,4 @@
-import {Map, List} from 'immutable';
+import { fromJS, List } from 'immutable';
 import createAction from '../utils/createAction';
 
 export const modalActionTypes = {
@@ -15,8 +15,8 @@ export const modalActions = {
   }
 };
 
-const initialState = Map({
-  modals: Map({})
+const initialState = fromJS({
+  modals: {}
 });
 
 function modals(state=initialState, action){
