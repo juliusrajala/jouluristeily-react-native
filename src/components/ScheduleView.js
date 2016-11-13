@@ -49,7 +49,8 @@ const styles = StyleSheet.create({
   scheduleList: {
     flex: 1,
     right: 0,
-    left: 0
+    left: 0,
+    backgroundColor: '#2f2f2f'
   },  
   scheduledEvent: {
 

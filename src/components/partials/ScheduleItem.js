@@ -11,8 +11,9 @@ const ScheduleItem = ({ event }) => {
       </View>
       <View style={styles.bread} >
         <Text style={styles.breadLabel} >{ event.get('name') }</Text>
-        <Text numberOfLines={4} style={styles.breadText} >{ event.get('description') }</Text>
+        <Text numberOfLines={3} style={styles.breadText} >{ event.get('description') }</Text>
       </View>
+      <View style={ styles.dot }></View>
     </View>
   )
 };
@@ -27,26 +28,43 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     left: 0,
     right: 0,
-    margin: 5
+    elevation: 3,
+    marginBottom: 10
   },
   times: {
-    backgroundColor: 'indianred',
     justifyContent: 'space-around',
     width: 50,
-    flexDirection: 'column'
+    flexDirection: 'column',
+    backgroundColor: 'white',
+    borderRadius: 2    
   },
   bread: {
     flex: 1,
-    paddingLeft: 5
+    padding: 10,
+    backgroundColor: 'white',
+    marginLeft: 5,
+    borderRadius: 2
   },
   hourLabel: {
     textAlign: 'center',    
-    fontWeight: '900'
+    fontWeight: '900',
+    maxHeight: 20
   },
   breadLabel: {
     fontWeight: '900'
   },
   breadText: {
+  },
+  dot: {
+    width: 20,
+    height: 20,
+    backgroundColor: 'white',
+    position: 'absolute',
+    borderColor: 'indianred',
+    borderWidth: 2,
+    top: 40,
+    left: 43,
+    borderRadius: 10
   }
 });
 
