@@ -32,7 +32,7 @@ const CabinView = ({ cabins, modals, dispatch }) => {
         ? <ScrollView
           style={styles.cabinList}
         >
-        { readyCabins.map((cabin, i) => 
+        { readyCabins.toArray().map((cabin, i) => 
           <CabinItem 
             key={cabin.get('cabinNumber')} 
             cabinNumber={cabin.get('cabinNumber')} 
