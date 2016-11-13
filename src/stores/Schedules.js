@@ -34,3 +34,5 @@ function scheduleReducer(state = initialState, action){
       return state;
   }
 };
+
+export default scheduleReducer;
