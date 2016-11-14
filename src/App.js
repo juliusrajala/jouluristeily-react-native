@@ -1,14 +1,13 @@
 import React, { PropTypes } from 'react';
-import Navigation from './components/Navigation';
+import NavigationView from './components/NavigationView';
 import AppRouter from './core/AppRouter';
 import { connect } from 'react-redux';
 
 import { View, StyleSheet } from 'react-native';
 
-const App = ({ route }) => 
+const App = () => 
   <View style={styles.app}>
-    <Navigation route={route} />
-    { AppRouter(route) }
+    <NavigationView />
   </View>;
 
 const styles = StyleSheet.create({
@@ -17,7 +16,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default connect(
-  (state, props) => ({
-    route: state.navigation.get('currentView')
-  }))(App);
+export default App;

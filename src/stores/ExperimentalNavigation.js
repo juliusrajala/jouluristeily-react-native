@@ -13,9 +13,25 @@ const initialState = fromJS({
   tabs: {
     index: 0,
     routes: [
-      {key: 'schedule', title: 'SCHEDULE'},
-      {key: 'cabins', title: 'CABINS'}
+      {key: 'schedule', title: 'SCHEDULE', icon: 'clock'},
+      {key: 'cabins', title: 'CABINS', icon: 'heart'},
+      {key: 'map', title: 'MAP', icon: 'location'},
+      {key: 'menu', title: 'MENU', icon: 'navicon'}
     ]
+  },
+  schedule: {
+    index: 0,
+    routes: [{key: 'schedule', title: 'SCHEDULE', icon: 'clock'}]
+  },
+  cabins: {
+    index: 0,
+    routes: [{key: 'cabins', title: 'CABINS', icon: 'heart'}]
+  },
+  map: {
+    index: 0
+  },
+  menu: {
+    index: 0
   }
 });
 
