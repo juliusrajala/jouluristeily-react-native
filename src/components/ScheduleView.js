@@ -6,7 +6,8 @@ import ScheduleItem from './partials/ScheduleItem';
 const ScheduleView = ({ schedules }) => {
   const events = schedules.get('events') || false;
   const sortedEvents = events && events.sort((a, b) => 
-    a.get('startTime') > b.get('startTime'))
+    a.get('startTime') > b.get('startTime'));
+  console.log(new Date().getTime())
 
   return (
     <View style={ styles.schedules } >
@@ -15,13 +16,14 @@ const ScheduleView = ({ schedules }) => {
       </View>
       <ScrollView style={ styles.scheduleList } >
       { sortedEvents
-        ? sortedEvents.toArray().map((event, i) => <ScheduleItem key={i} event={ event } /> )
+        ? sortedEvents.toArray().map((event, i) => 
+          <ScheduleItem active={i===2} key={i} event={ event } /> )
         : <Text>No Events</Text>
       }
       </ScrollView>
     </View>
   );
-} 
+};
 
 ScheduleView.propTypes = {
   schedules: PropTypes.object

@@ -2,25 +2,38 @@ import React, { PropTypes } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { getTimeFromMilliseconds } from '../../utils/dateTime';
 
-const ScheduleItem = ({ event }) => {
+const ScheduleItem = ({ event, active }) => {
   return (
     <View style={ styles.item } >
-      <View style={styles.times} >
-        <Text style={styles.hourLabel} >{ getTimeFromMilliseconds(event.get('startTime')) }</Text>
-        <Text style={styles.hourLabel} >{ event.get('endTime') && getTimeFromMilliseconds(event.get('endTime')) }</Text>
+      <View style={ [styles.times, active && activeStyle.times] } >
+        <Text style={[styles.hourLabel, active && activeStyle.hourLabel]} >{ getTimeFromMilliseconds(event.get('startTime')) }</Text>
+        <Text style={[styles.hourLabel, active && activeStyle.hourLabel]} >{ event.get('endTime') && getTimeFromMilliseconds(event.get('endTime')) }</Text>
       </View>
       <View style={styles.bread} >
-        <Text style={styles.breadLabel} >{ event.get('name') }</Text>
+        <Text style={ styles.breadLabel }>{ event.get('name') }</Text>
         <Text numberOfLines={3} style={styles.breadText} >{ event.get('description') }</Text>
       </View>
-      <View style={ styles.dot }></View>
+      <View style={ [styles.dot, active && activeStyle.dot] }></View>
     </View>
   )
 };
 
 ScheduleItem.propTypes = {
-  event: PropTypes.object
+  event: PropTypes.object,
+  active: PropTypes.bool
 };
+
+const activeStyle = StyleSheet.create({
+  dot: {
+    backgroundColor: 'firebrick' 
+  },
+  times: {
+    backgroundColor: 'firebrick'
+  },
+  hourLabel: {
+    color: 'white'
+  }
+})
 
 const styles = StyleSheet.create({
   item: {
@@ -29,21 +42,19 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     elevation: 3,
-    marginBottom: 10
+    marginBottom: 10,
+    borderRadius: 2    
   },
   times: {
     justifyContent: 'space-around',
     width: 50,
     flexDirection: 'column',
-    backgroundColor: 'white',
-    borderRadius: 2    
+    backgroundColor: 'white'
   },
   bread: {
     flex: 1,
-    padding: 10,
     backgroundColor: 'white',
-    marginLeft: 5,
-    borderRadius: 2
+    marginLeft: 5
   },
   hourLabel: {
     textAlign: 'center',    
@@ -51,9 +62,15 @@ const styles = StyleSheet.create({
     maxHeight: 20
   },
   breadLabel: {
+    paddingLeft: 10,
+    paddingTop: 5,
+    paddingRight: 10,
+    paddingBottom: 5,
     fontWeight: '900'
   },
   breadText: {
+    paddingLeft: 10,
+    paddingRight: 10
   },
   dot: {
     width: 20,
