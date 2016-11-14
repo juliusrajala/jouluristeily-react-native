@@ -58,9 +58,9 @@ const styles = StyleSheet.create({
   dot: {
     width: 20,
     height: 20,
-    backgroundColor: 'white',
+    backgroundColor: 'indianred',
     position: 'absolute',
-    borderColor: 'indianred',
+    borderColor: '#2f2f2f',
     borderWidth: 2,
     top: 40,
     left: 43,

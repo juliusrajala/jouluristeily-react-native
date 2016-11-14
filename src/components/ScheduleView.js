@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import ScheduleItem from './partials/ScheduleItem';
 
 const ScheduleView = ({ schedules }) => {
-  console.log('schedules', schedules.toJS())
   const events = schedules.get('events') || false;
+  const sortedEvents = events && events.sort((a, b) => 
+    a.get('startTime') > b.get('startTime'))
 
   return (
     <View style={ styles.schedules } >
@@ -13,8 +14,8 @@ const ScheduleView = ({ schedules }) => {
       <Text style={ styles.schedulesTitle }>Aikataulu</Text>
       </View>
       <ScrollView style={ styles.scheduleList } >
-      { events
-        ? events.toArray().map((event, i) => <ScheduleItem key={i} event={ event } /> )
+      { sortedEvents
+        ? sortedEvents.toArray().map((event, i) => <ScheduleItem key={i} event={ event } /> )
         : <Text>No Events</Text>
       }
       </ScrollView>
