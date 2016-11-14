@@ -31,6 +31,16 @@ const initialState = fromJS({
     key: 'cabins',
     index: 0,
     routes: [{key: 'cabinsView'}]
+  },
+  map: {
+    key: 'map',
+    index: 0,
+    routes: [{key: 'mapView'}]
+  },
+  menu: {
+    key: 'map',
+    index: 0,
+    routes: [{key: 'menuView'}]
   }
 });
 
@@ -73,7 +83,7 @@ function navigationReducer(state = initialState, action){
       }
       return state;
     }
-    
+
     case navigationActionTypes.pop: {
       const tabs = state.get('tabs');
       const tabKey = tabs.getIn(['routes', tabs.get('index'), 'key']);
