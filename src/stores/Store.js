@@ -4,12 +4,14 @@ import navigation from './Navigation';
 import cabins from './Cabins';
 import modals from './Modals';
 import schedules from './Schedules';
+import navi from './ExperimentalNavigation';
 
 const store = combineReducers({
   cabins,
   navigation,
   modals,
-  schedules
+  schedules,
+  navi
 });
 
 export default createStore(store);
