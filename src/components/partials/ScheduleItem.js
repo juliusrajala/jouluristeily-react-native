@@ -7,7 +7,7 @@ const ScheduleItem = ({ event, active }) => {
     <View style={ styles.item } >
       <View style={ [styles.times, active && activeStyle.times] } >
         <Text style={[styles.hourLabel, active && activeStyle.hourLabel]} >{ getTimeFromMilliseconds(event.get('startTime')) }</Text>
-        <Text style={[styles.hourLabel, active && activeStyle.hourLabel]} >{ event.get('endTime') && getTimeFromMilliseconds(event.get('endTime')) }</Text>
+        {event.get('endTime') && active && <Text style={[styles.hourLabel, active && activeStyle.hourLabel]} >{ getTimeFromMilliseconds(event.get('endTime')) }</Text>}
       </View>
       <View style={styles.bread} >
         <Text style={ styles.breadLabel }>{ event.get('name') }</Text>
@@ -42,19 +42,21 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     elevation: 3,
-    marginBottom: 10,
     borderRadius: 2    
   },
   times: {
     justifyContent: 'space-around',
-    width: 50,
+    width: 70,
     flexDirection: 'column',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    borderColor: '#2f2f2f',
+    borderRightWidth: 4
   },
   bread: {
     flex: 1,
     backgroundColor: 'white',
-    marginLeft: 5
+    borderColor: 'lightgrey',
+    borderTopWidth: 1
   },
   hourLabel: {
     textAlign: 'center',    
@@ -80,7 +82,7 @@ const styles = StyleSheet.create({
     borderColor: '#2f2f2f',
     borderWidth: 2,
     top: 40,
-    left: 43,
+    left: 58,
     borderRadius: 10
   }
 });
