@@ -2,6 +2,8 @@ import React, { PropTypes } from 'react';
 import { View, ScrollView, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import ScheduleItem from './partials/ScheduleItem';
+import FloatingActionButton from './partials/FloatingActionButton';
+import Icon from 'react-native-vector-icons/EvilIcons';
 
 const ScheduleView = ({ schedules }) => {
   const events = schedules.get('events') || false;
@@ -21,6 +23,11 @@ const ScheduleView = ({ schedules }) => {
         : <Text>No Events</Text>
       }
       </ScrollView>
+      <FloatingActionButton 
+        backgroundColor={'firebrick'}
+        action={() => {console.log('testi');}}>
+        <Icon style={ styles.fabLabel } name='cart' color='#fff'/>
+      </FloatingActionButton>
     </View>
   );
 };
@@ -57,6 +64,9 @@ const styles = StyleSheet.create({
   },  
   scheduledEvent: {
 
+  },
+  fabLabel: {
+    fontSize: 40
   }
 });
 

@@ -1,11 +1,11 @@
 import React, {PropTypes} from 'react';
 import {TouchableOpacity, StyleSheet} from 'react-native';
 
-const FloatingActionButton = ({action, children, color}) => {
+const FloatingActionButton = ({action, children, backgroundColor}) => {
   return (
     <TouchableOpacity 
-      onPress={() => action(target)}
-      style={[styles.addButton, faded && {opacity: .5}]}>
+      onPress={() => action()}
+      style={[styles.addButton, backgroundColor && {backgroundColor: backgroundColor}]}>
       {children}
     </TouchableOpacity>
   )
@@ -14,7 +14,7 @@ const FloatingActionButton = ({action, children, color}) => {
 FloatingActionButton.propTypes = {
   action: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
-  color: PropTypes.string
+  backgroundColor: PropTypes.string
 };
 
 
