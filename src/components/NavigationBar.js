@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 import { fromJS } from 'immutable';
 import { connect } from 'react-redux';
 import NaviTab from './NaviTab';
-import { navigationActions } from '../stores/Navigation';
 
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';

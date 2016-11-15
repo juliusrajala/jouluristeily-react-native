@@ -20,18 +20,17 @@ const initialState = fromJS({
     ]
   },
   schedule: {
+    key: 'schedule',
     index: 0,
-    routes: [{key: 'schedule', title: 'SCHEDULE', icon: 'clock'}]
+    routes: [
+      {key: 'scheduleView'},
+      {key: 'openingHours'}
+    ]
   },
   cabins: {
+    key: 'cabins',
     index: 0,
-    routes: [{key: 'cabins', title: 'CABINS', icon: 'heart'}]
-  },
-  map: {
-    index: 0
-  },
-  menu: {
-    index: 0
+    routes: [{key: 'cabinsView'}]
   }
 });
 
