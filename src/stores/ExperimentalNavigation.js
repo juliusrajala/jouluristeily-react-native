@@ -76,11 +76,12 @@ function navigationReducer(state = initialState, action){
     
     case navigationActionTypes.pop: {
       const tabs = state.get('tabs');
-      const tabKey = tabs.getIn(['routes', tabs.get('index')]).get('key');
-      const scenes = state.get(tabKey)
+      const tabKey = tabs.getIn(['routes', tabs.get('index'), 'key']);
+      const scenes = state.get(tabKey).toJS();
       const nextScenes = NavigationStateUtils.pop(scenes);
 
       if(scenes !== nextScenes) {
+        console.log('Changing state via back-button');
         return state.set(tabKey, fromJS(nextScenes));
       }
       return state;

@@ -1,13 +1,12 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {NavigationExperimental, View, StyleSheet} from 'react-native';
+import {NavigationExperimental, View, StyleSheet, BackAndroid} from 'react-native';
 import {navigationActions} from '../stores/ExperimentalNavigation';
 import AppRouter from '../core/AppRouter';
 import NavigationBar from './NavigationBar';
 
 const {
   CardStack: NavigationCardStack,
-  Header: NavigationHeader,
   PropTypes: NavigationPropTypes
 } = NavigationExperimental;
 
@@ -15,6 +14,8 @@ const NavigationView = ({navi, switchTab, pushRoute, onNavigateBack}) => {
   const tabs = navi.get('tabs');
   const tabKey = navi.getIn(['tabs', 'routes', navi.getIn(['tabs','index']), 'key']);
   const scenes = navi.get(tabKey);
+
+  BackAndroid.addEventListener('hardwareBackPress', () => onNavigateBack())
 
   const renderScene = (sceneProps) =>{
     return (
