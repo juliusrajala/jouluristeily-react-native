@@ -3,15 +3,17 @@ import LandingView from '../components/LandingView';
 import CabinView from '../components/CabinView';
 import ScheduleView from '../components/ScheduleView';
 
-export default function AppRouter(view, props){
-  switch(view){
-    case 'CABINS':
+export default function AppRouter(props){
+  const key = props.scene.route.key;
+  console.log('key', key)
+  switch(key){
+    case 'cabinsView':
       console.log('Moving to cabin view');
       return <CabinView props />
-    case 'SCHEDULE':
+    case 'scheduleView':
       console.log('Moving to SCHEDULE');
       return <ScheduleView props />
-    case 'MAP':
+    case 'map':
     default:
       return <ScheduleView props />;
   }

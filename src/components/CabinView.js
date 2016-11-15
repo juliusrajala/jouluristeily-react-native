@@ -64,10 +64,6 @@ CabinView.propTypes = {
 const styles = StyleSheet.create({
   CabinView: {
     flex: 1,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    top: 0,
     backgroundColor: '#2f2f2f'
   },
   cabinViewPlaceholder: {
@@ -86,6 +82,8 @@ const styles = StyleSheet.create({
     flex: 1,
     left: 0,
     right: 0,
+    top: 0,
+    bottom: 0
   }
 });
 
