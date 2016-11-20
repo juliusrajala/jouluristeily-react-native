@@ -13,11 +13,15 @@ const MapView = ({ categories }) => {
         style={styles.photoView }
         source={require('./images/map.png')}
         minimumZoomScale={1}
-        maximumZoomScale={3}
+        maximumZoomScale={4}
         androidScaleType="centerInside"
         onLoad={() => console.log("Image loaded!")}
         style={{flex: 1}} />
-      <Text style={ styles.mapCategories }>Ostokset Baarit Ravintolat</Text>
+      <View style={ styles.categories }>
+          <Text style={ styles.category }>Ostokset</Text>
+          <Text style={ styles.category }>Baarit</Text>
+          <Text style={ styles.category }>Ravintolat</Text>
+      </View>
     </View>
   );
 }
@@ -34,12 +38,15 @@ const styles = StyleSheet.create({
   photoView: {
     backgroundColor: '#2f2f2f'
   },
-  mapCategories: {
-    textAlign: 'center',
+  categories: {
+    height: 50,
+    flexDirection: 'row',
+    justifyContent: 'space-around'
+  },
+  category: {
     fontWeight: '400',
     fontSize: 20,
     color: 'gainsboro',
-    height: 50
   },
 });
 
