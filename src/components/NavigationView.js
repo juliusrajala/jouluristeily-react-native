@@ -17,7 +17,7 @@ const NavigationView = ({navi, switchTab, pushRoute, onNavigateBack}) => {
 
   BackAndroid.addEventListener('hardwareBackPress', () => onNavigateBack())
 
-  const renderScene = (sceneProps) =>{
+  const renderScene = (sceneProps) => {
     return (
       <View style={styles.sceneContainer}>
         {AppRouter(sceneProps)}
@@ -27,7 +27,7 @@ const NavigationView = ({navi, switchTab, pushRoute, onNavigateBack}) => {
 
   return (
     <View style={styles.container}>
-      <NavigationBar 
+      <NavigationBar
         tabs={tabs}
         currentTabIndex={tabs.get('index')}
         switchTab={switchTab}
