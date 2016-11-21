@@ -1,23 +1,14 @@
 import React, { PropTypes } from 'react';
-
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  StyleSheet
-} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
-const CabinItem = ({cabinNumber, cabinDescription}) => {
+const CabinItem = ({cabinNumber, cabinDescription, removeCabin}) => {
   return (
-    <View style={ styles.cabinListItem }>
-      <View style={ styles.cabinListItemActions }>
-        <TouchableOpacity>
-          <Icon style={ styles.cabinListItemActionButton } name="pencil" size={ 20 } />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Icon style={ styles.cabinListItemActionButton } name="close" size={ 20 } />
+    <View style={ styles.cabinListItem}>
+      <View style={ styles.cabinListItemActions}>
+        <TouchableOpacity
+          onPress={() => removeCabin(cabinNumber)} >
+          <Icon style={ styles.cabinListItemActionButton} name="close" size={30} />
         </TouchableOpacity>
       </View>
       <Text style={styles.cabinListItemLabel}>
@@ -34,7 +25,8 @@ const CabinItem = ({cabinNumber, cabinDescription}) => {
 
 CabinItem.propTypes = {
   cabinNumber: PropTypes.string,
-  cabinDescription: PropTypes.string
+  cabinDescription: PropTypes.string,
+  removeCabin: PropTypes.func.isRequired
 };
 
 const styles = StyleSheet.create({
@@ -50,16 +42,16 @@ const styles = StyleSheet.create({
     position: 'relative'
   },
   cabinListItemActions: {
-    width: 150,
-    flexDirection: 'row',
+    width: 50,
+    height: 50,
     position: 'absolute',
     right: 0,
-    top: 0
+    top: 10
   },
   cabinListItemActionButton: {
     flex: 1,
     margin: 5,
-    justifyContent: 'flex-end'
+    justifyContent: 'space-around'
   },
   cabinListItemLabel: {
     fontWeight: '900',

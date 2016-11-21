@@ -30,7 +30,8 @@ function cabins(state=initialState, action) {
       console.log('action payload', action.payload.toJS())
       return state.setIn(['cabins', action.payload.get('cabinNumber')], action.payload);
     case cabinActionsTypes.cabin_removed:
-      return state.set('cabins', state.cabins.filter(cabin => cabin.get('cabinNumber') !== action.payload.cabinNumber));
+      console.log('payload, cabinNumber', action.payload, state.get('cabins').toJS());
+      return state.set('cabins', state.get('cabins').filter(cabin => cabin.get('cabinNumber') !== action.payload));
     default:
       return state;
   }

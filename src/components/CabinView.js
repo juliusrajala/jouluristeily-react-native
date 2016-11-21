@@ -1,5 +1,8 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import {View, Text, ScrollView, StyleSheet} from 'react-native';
+import Icon from 'react-native-vector-icons/EvilIcons';
+
 import { modalActions } from '../stores/Modals';
 import { cabinActions } from '../stores/Cabins';
 
@@ -7,11 +10,7 @@ import CabinItem from './CabinItem';
 import FloatingActionButton from './partials/FloatingActionButton';
 import CruiseModal from './CruiseModal';
 
-import {View, Text, ScrollView, StyleSheet} from 'react-native';
-import Icon from 'react-native-vector-icons/EvilIcons';
-
-
-const CabinView = ({ cabins, modals, openModal, addCabin }) => {
+const CabinView = ({ cabins, modals, openModal, addCabin, removeCabin }) => {
   const readyCabins = cabins.get('cabins');
   const addCabinModalId = 'AddCabinModal';
 
@@ -21,7 +20,8 @@ const CabinView = ({ cabins, modals, openModal, addCabin }) => {
         ? <ScrollView style={styles.cabinList}>
         { readyCabins.toArray().map((cabin, i) => 
           <CabinItem 
-            key={cabin.get('cabinNumber')} 
+            key={cabin.get('cabinNumber')}
+            removeCabin={removeCabin}
             cabinNumber={cabin.get('cabinNumber')} 
             cabinDescription={cabin.get('cabinDescription')} /> )
         }
@@ -47,7 +47,11 @@ const CabinView = ({ cabins, modals, openModal, addCabin }) => {
 };
 
 CabinView.propTypes = {
-  cabins: PropTypes.object.isRequired
+  cabins: PropTypes.object.isRequired,
+  modals: PropTypes.object.isRequired,
+  openModal: PropTypes.func.isRequired,
+  addCabin: PropTypes.func.isRequired,
+  removeCabin: PropTypes.func.isRequired
 };
 
 const styles = StyleSheet.create({
@@ -92,6 +96,9 @@ export default connect(
     },
     addCabin(cabinNumber, cabinDescription){
       dispatch(cabinActions.addCabin(cabinNumber, cabinDescription));
+    },
+    removeCabin(cabinNumber){
+      dispatch(cabinActions.removeCabin(cabinNumber));
     }
   })
 )(CabinView);
