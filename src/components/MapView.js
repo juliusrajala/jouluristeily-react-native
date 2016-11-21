@@ -57,15 +57,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#2f2f2f'
   },
   tags: {
-    height: 72,
+    height: 48,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center'
   },
   tag: {
     fontWeight: '400',
-    fontSize: 20,
-    color: 'gainsboro',
+    fontSize: 18,
+    fontFamily: 'bungee',
+    color: 'gainsboro'
   },
   activeTag: {
     color: '#ffea00'
