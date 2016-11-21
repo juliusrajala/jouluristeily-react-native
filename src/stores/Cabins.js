@@ -3,10 +3,8 @@ import { fromJS, Map, List } from 'immutable';
 import createAction from '../utils/createAction';
 
 export const cabinActionsTypes = {
-  home_cabin: 'home_cabin',
   cabin_added: 'cabin_added',
-  cabin_removed: 'cabin_removed',
-  description_changed: 'description_changed'
+  cabin_removed: 'cabin_removed'
 };
 
 export const cabinActions = {
