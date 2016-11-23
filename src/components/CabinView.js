@@ -4,7 +4,7 @@ import {View, Text, ScrollView, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
 import { modalActions } from '../stores/Modals';
-import { cabinActions } from '../stores/Cabins';
+import { cabinActions, getCabinsFromStorage } from '../stores/Cabins';
 
 import CabinItem from './CabinItem';
 import FloatingActionButton from './partials/FloatingActionButton';
@@ -13,6 +13,8 @@ import CruiseModal from './CruiseModal';
 const CabinView = ({ cabins, modals, openModal, addCabin, removeCabin }) => {
   const readyCabins = cabins.get('cabins');
   const addCabinModalId = 'AddCabinModal';
+
+  getCabinsFromStorage();
 
   return (
     <View style={styles.CabinView}>

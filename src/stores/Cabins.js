@@ -22,18 +22,29 @@ export const cabinActions = {
   }
 };
 
-function getCabinsFromStorage(){
+export function getCabinsFromStorage(){
   return Promise.resolve(localStorage.cabins.find())
-    .then(resp => resp) 
+    .then(resp => {
+      console.log('response is,', resp)
+      let cabins = {}; 
+      resp.map(cabin => {
+        cabins[cabin.cabinNumber] = {
+          cabinNumber: cabin.cabinNumber,
+          cabinDescription: cabin.cabinDescription
+        }
+      })
+      console.log('cabins are', cabins);
+    });
 }
 
 const initialState = fromJS({
-  cabins: getCabinsFromStorage() || {}
+  cabins: {}
 });
 
 function cabins(state=initialState, action) {
   console.log(action, state.toJS());
   switch(action.type) {
+    // case navigationActionTypes.switch:
     case cabinActionsTypes.cabin_added:
       const cabin = action.payload;
       // localStorage.cabins.add({
