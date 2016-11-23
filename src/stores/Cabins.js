@@ -9,7 +9,9 @@ const localStorage = {
 
 export const cabinActionsTypes = {
   cabin_added: 'cabin_added',
-  cabin_removed: 'cabin_removed'
+  cabin_removed: 'cabin_removed',
+  cabins_loading: 'cabins_loading',
+  cabins_loaded: 'cabins_loaded'
 };
 
 export const cabinActions = {
@@ -22,39 +24,61 @@ export const cabinActions = {
   }
 };
 
+function mapItems(response){
+  if(!response) return {};
+  let cabins = {};
+  resp.map(cabin => {
+    cabins[cabin.cabinNumber] = {
+      cabinNumber: cabin.cabinNumber,
+      cabinDescription: cabin.cabinDescription
+    }
+  });
+  return cabins;
+}
+
 export function getCabinsFromStorage(){
-  return Promise.resolve(localStorage.cabins.find())
-    .then(resp => {
-      console.log('response is,', resp)
-      let cabins = {}; 
-      resp.map(cabin => {
-        cabins[cabin.cabinNumber] = {
-          cabinNumber: cabin.cabinNumber,
-          cabinDescription: cabin.cabinDescription
-        }
+  return dispatch => {
+    dispatch(cabinActionsTypes.cabins_loading, true);
+    return localStorage.cabins.find()
+      .then(resp => {
+        console.log('response is,', resp)
+        const cabins = mapItems(resp);
+        console.log('cabins are', cabins);
+        // dispatch(createAction(cabinActionsTypes.cabins_loaded, cabins))
       })
-      console.log('cabins are', cabins);
-    });
+      .catch(err => {
+        console.log('Error', err);
+      })
+  }
 }
 
 const initialState = fromJS({
+  loading: false,
+  ready: false,
   cabins: {}
 });
 
 function cabins(state=initialState, action) {
   console.log(action, state.toJS());
   switch(action.type) {
-    // case navigationActionTypes.switch:
+    case cabinActionsTypes.cabins_loading:
+      console.log('cabins loading');
+      return state;
+
+    case cabinActionsTypes.cabins_loaded:
+      console.log('cabins loaded', action.payload)
+      return state.set('loading', false)
+        .set('ready', true)
+        .set('cabins', action.payload.cabins);
+
     case cabinActionsTypes.cabin_added:
       const cabin = action.payload;
-      // localStorage.cabins.add({
-      //   cabinNumber: cabin.get('cabinNumber'), 
-      //   cabinDescription: cabin.get('cabinDescription')
-      // });
       return state.setIn(['cabins', action.payload.get('cabinNumber')], action.payload);
+
     case cabinActionsTypes.cabin_removed:
       localStorage.cabins.remove(item => item.cabinNumber !== action.payload);
       return state.set('cabins', state.get('cabins').filter(cabin => cabin.get('cabinNumber') !== action.payload));
+    
     default:
       return state;
   }

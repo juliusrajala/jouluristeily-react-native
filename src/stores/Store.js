@@ -1,14 +1,25 @@
-import { combineReducers,  createStore } from 'redux';
+import { combineReducers, createStore, applyMiddleware } from 'redux';
+import thunkMiddleware from 'redux-thunk';
 import cabins from './Cabins';
 import modals from './Modals';
 import schedules from './Schedules';
 import navi from './ExperimentalNavigation';
 
-const store = combineReducers({
+const rootReducer = combineReducers({
   cabins,
   modals,
   schedules,
   navi
 });
 
-export default createStore(store);
+function configureStore(preloadedState){
+ return createStore(
+   rootReducer, 
+   preloadedState, 
+   applyMiddleware(
+     thunkMiddleware
+   )
+  );
+}
+
+export default configureStore;

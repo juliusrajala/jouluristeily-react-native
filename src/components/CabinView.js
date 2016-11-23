@@ -10,12 +10,12 @@ import CabinItem from './CabinItem';
 import FloatingActionButton from './partials/FloatingActionButton';
 import CruiseModal from './CruiseModal';
 
-const CabinView = ({ cabins, modals, openModal, addCabin, removeCabin }) => {
+const CabinView = ({ cabins, modals, openModal, addCabin, removeCabin, getCabins }) => {
   const readyCabins = cabins.get('cabins');
+  console.log('cabinStatus: ready, loading', cabins.get('ready'), cabins.get('loading'));
+  !cabins.get('ready') && getCabins();
   const addCabinModalId = 'AddCabinModal';
-
-  getCabinsFromStorage();
-
+  // getCabins();
   return (
     <View style={styles.CabinView}>
       { readyCabins.size > 0 
@@ -101,6 +101,15 @@ export default connect(
     },
     removeCabin(cabinNumber){
       dispatch(cabinActions.removeCabin(cabinNumber));
+    },
+    getCabins(){
+      dispatch(getCabinsFromStorage())
+        .then(() => {
+          console.log('This gets called')
+        })
+        .catch(err => {
+          console.log('Something went wrong', err);
+        })
     }
   })
 )(CabinView);
