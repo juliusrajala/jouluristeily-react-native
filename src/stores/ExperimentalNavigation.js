@@ -1,12 +1,14 @@
 import {fromJS} from 'immutable';
 import {NavigationExperimental} from 'react-native';
+import {getCabinsFromStorage} from './Cabins';
 
 const {StateUtils: NavigationStateUtils} = NavigationExperimental;
 
 const navigationActionTypes = {
   push: 'navigationActionTypes.push',
   pop: 'navigationActionTypes.pop',
-  switch: 'navigationActionTypes.switch'
+  switch: 'navigationActionTypes.switch',
+  load: 'navigationActionTypes.load'
 };
 
 const initialState = fromJS({
@@ -43,6 +45,25 @@ export const navigationActions = {
   },
   popRoute(){
     return {type: navigationActionTypes.pop}
+  },
+  loadView(index){
+    if(index === 1){
+      console.log('Moving to CabinView, loading cabins first');
+      return dispatch => {
+        dispatch(getCabinsFromStorage())
+          .then(response => {
+            dispatch({
+              type: navigationActionTypes.switch,
+              payload: index
+            });
+          })
+      }
+    }
+    console.log('index', index);
+    return {
+      type: navigationActionTypes.switch,
+      payload: index
+    }
   },
   switchTab(index){
     return {

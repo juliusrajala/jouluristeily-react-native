@@ -10,7 +10,8 @@ const {
   PropTypes: NavigationPropTypes
 } = NavigationExperimental;
 
-const NavigationView = ({navi, switchTab, pushRoute, onNavigateBack}) => {
+const NavigationView = ({navi, loadView, pushRoute, onNavigateBack}) => {
+  const switchTab = loadView;
   const tabs = navi.get('tabs');
   const tabKey = navi.getIn(['tabs', 'routes', navi.getIn(['tabs','index']), 'key']);
   const scenes = navi.get(tabKey);
@@ -63,8 +64,8 @@ export default connect(
     navi: state.navi
   }),
   dispatch => ({
-    switchTab(index) {
-      dispatch(navigationActions.switchTab(index));
+    loadView(index) {
+      dispatch(navigationActions.loadView(index));
     },
     pushRoute(index) {
       dispatch(navigationActions.pushRoute(index));

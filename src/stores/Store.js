@@ -1,5 +1,5 @@
-import { combineReducers, createStore, applyMiddleware } from 'redux';
-import thunkMiddleware from 'redux-thunk';
+import {combineReducers} from 'redux';
+import thunk from 'redux-thunk';
 import cabins from './Cabins';
 import modals from './Modals';
 import schedules from './Schedules';
@@ -12,14 +12,4 @@ const rootReducer = combineReducers({
   navi
 });
 
-function configureStore(preloadedState){
- return createStore(
-   rootReducer, 
-   preloadedState, 
-   applyMiddleware(
-     thunkMiddleware
-   )
-  );
-}
-
-export default configureStore;
+export default rootReducer;

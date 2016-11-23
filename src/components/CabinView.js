@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React, {Component, PropTypes } from 'react';
+import { bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 import {View, Text, ScrollView, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
@@ -10,17 +11,31 @@ import CabinItem from './CabinItem';
 import FloatingActionButton from './partials/FloatingActionButton';
 import CruiseModal from './CruiseModal';
 
-const CabinView = ({ cabins, modals, openModal, addCabin, removeCabin, getCabins }) => {
-  const readyCabins = cabins.get('cabins');
-  console.log('cabinStatus: ready, loading', cabins.get('ready'), cabins.get('loading'));
-  !cabins.get('ready') && getCabins();
+const CabinView = ({ cabins, modals, openModal, addCabin, removeCabin, getCabins, dispatch }) => {
+  if(!cabins.get('ready')){
+    console.log('We dont have cabins')
+    return (
+      <View style={styles.CabinView}>
+        <View style={styles.cabinViewPlaceholder}>
+          <Text style={styles.placeholderText}>
+            Sinulla ei ole tallennettuja hyttejä. Voit lisätä hyttejä painamalla nappia.
+          </Text>
+        </View>
+      </View>
+    )
+  }
+
+  const savedCabins = cabins.get('cabins');
+
+  console.log('We have cabins');
+
   const addCabinModalId = 'AddCabinModal';
-  // getCabins();
+
   return (
     <View style={styles.CabinView}>
-      { readyCabins.size > 0 
+      { savedCabins 
         ? <ScrollView style={styles.cabinList}>
-        { readyCabins.toArray().map((cabin, i) => 
+        { savedCabins.toArray().map((cabin, i) => 
           <CabinItem 
             key={cabin.get('cabinNumber')}
             removeCabin={removeCabin}
@@ -48,12 +63,34 @@ const CabinView = ({ cabins, modals, openModal, addCabin, removeCabin, getCabins
   )
 };
 
+// console.log(getCabinsFromStorage);
+
+// class CabinView extends Component {
+//   componentDidMount(){
+//     let {dispatch} = this.props;
+
+//     let action = getCabinsFromStorage();
+//     dispatch(action);
+//   }
+
+//   render(){
+//     return (
+//       <View >
+//         <Text>
+//           Test
+//         </Text>
+//       </View>
+//     ) 
+//   }
+// }
+
 CabinView.propTypes = {
   cabins: PropTypes.object.isRequired,
   modals: PropTypes.object.isRequired,
-  openModal: PropTypes.func.isRequired,
-  addCabin: PropTypes.func.isRequired,
-  removeCabin: PropTypes.func.isRequired
+  openModal: PropTypes.func,
+  addCabin: PropTypes.func,
+  removeCabin: PropTypes.func,
+  dispatch: PropTypes.func
 };
 
 const styles = StyleSheet.create({

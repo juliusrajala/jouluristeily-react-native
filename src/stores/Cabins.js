@@ -25,7 +25,7 @@ export const cabinActions = {
 };
 
 function mapItems(response){
-  if(!response) return {};
+  if(!response) return Promise.resolve();
   let cabins = {};
   resp.map(cabin => {
     cabins[cabin.cabinNumber] = {
@@ -37,14 +37,15 @@ function mapItems(response){
 }
 
 export function getCabinsFromStorage(){
+  console.log('getCabinsFromStorage called');
   return dispatch => {
-    dispatch(cabinActionsTypes.cabins_loading, true);
+    dispatch(createAction(cabinActionsTypes.cabins_loading, true));
     return localStorage.cabins.find()
       .then(resp => {
         console.log('response is,', resp)
         const cabins = mapItems(resp);
         console.log('cabins are', cabins);
-        // dispatch(createAction(cabinActionsTypes.cabins_loaded, cabins))
+        dispatch(createAction(cabinActionsTypes.cabins_loaded, cabins))
       })
       .catch(err => {
         console.log('Error', err);
@@ -59,7 +60,6 @@ const initialState = fromJS({
 });
 
 function cabins(state=initialState, action) {
-  console.log(action, state.toJS());
   switch(action.type) {
     case cabinActionsTypes.cabins_loading:
       console.log('cabins loading');
