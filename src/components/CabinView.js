@@ -63,27 +63,6 @@ const CabinView = ({ cabins, modals, openModal, addCabin, removeCabin, getCabins
   )
 };
 
-// console.log(getCabinsFromStorage);
-
-// class CabinView extends Component {
-//   componentDidMount(){
-//     let {dispatch} = this.props;
-
-//     let action = getCabinsFromStorage();
-//     dispatch(action);
-//   }
-
-//   render(){
-//     return (
-//       <View >
-//         <Text>
-//           Test
-//         </Text>
-//       </View>
-//     ) 
-//   }
-// }
-
 CabinView.propTypes = {
   cabins: PropTypes.object.isRequired,
   modals: PropTypes.object.isRequired,
@@ -138,15 +117,6 @@ export default connect(
     },
     removeCabin(cabinNumber){
       dispatch(cabinActions.removeCabin(cabinNumber));
-    },
-    getCabins(){
-      dispatch(getCabinsFromStorage())
-        .then(() => {
-          console.log('This gets called')
-        })
-        .catch(err => {
-          console.log('Something went wrong', err);
-        })
     }
   })
 )(CabinView);
