@@ -1,4 +1,4 @@
-package com.jouluristeilyreactnative;
+package net.jouluristeily.risteilyohjelma16;
 
 import android.app.Application;
 import android.util.Log;
