@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/EvilIcons';
 
 const ScheduleView = ({ schedules }) => {
   const events = schedules.get('events') || false;
-  const sortedEvents = events && events.sort((a, b) => 
+  const sortedEvents = events && events.sort((a, b) =>
     a.get('startTime') > b.get('startTime'));
   console.log(new Date().getTime())
 
@@ -18,12 +18,12 @@ const ScheduleView = ({ schedules }) => {
       </View>
       <ScrollView style={ styles.scheduleList } >
       { sortedEvents
-        ? sortedEvents.toArray().map((event, i) => 
+        ? sortedEvents.toArray().map((event, i) =>
           <ScheduleItem active={i===2} key={i} event={ event } /> )
         : <Text>No Events</Text>
       }
       </ScrollView>
-      <FloatingActionButton 
+      <FloatingActionButton
         backgroundColor={'firebrick'}
         action={() => {console.log('testi');}}>
         <Icon style={ styles.fabLabel } name='cart' color='#fff'/>
@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
   schedulesTitle: {
     color: 'white',
     textAlign: 'center',
+    fontFamily: 'bungee',
     fontWeight: '400',
     fontSize: 20
   },
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
     right: 0,
     left: 0,
     backgroundColor: '#2f2f2f'
-  },  
+  },
   scheduledEvent: {
 
   },

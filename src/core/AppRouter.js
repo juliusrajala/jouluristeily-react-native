@@ -1,7 +1,10 @@
 import React from 'react';
+
 import LandingView from '../ui/LandingView';
 import CabinView from '../ui/CabinView';
 import ScheduleView from '../ui/ScheduleView';
+import MapView from '../ui/MapView';
+import MenuView from '../ui/MenuView';
 
 export default function AppRouter(props){
   const key = props.scene.route.key;
@@ -11,9 +14,14 @@ export default function AppRouter(props){
       console.log('Moving to cabin view');
       return <CabinView props />
     case 'scheduleView':
-      console.log('Moving to SCHEDULE');
+      console.log('Moving to schedule view');
       return <ScheduleView props />
-    case 'map':
+    case 'mapView':
+      console.log('Moving to map view');
+      return <MapView props />
+    case 'menuView':
+      console.log('Moving to menu view');
+      return <MenuView props />
     default:
       return <ScheduleView props />;
   }
