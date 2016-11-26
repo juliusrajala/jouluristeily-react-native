@@ -6,12 +6,14 @@ const ScheduleItem = ({ event, active }) => {
   return (
     <View style={ styles.item } >
       <View style={ [styles.times, active && activeStyle.times] } >
-        <Text style={[styles.hourLabel, active && activeStyle.hourLabel]} >{ getTimeFromMilliseconds(event.get('startTime')) }</Text>
-        {event.get('endTime') && active && <Text style={[styles.hourLabel, active && activeStyle.hourLabel]} >{ getTimeFromMilliseconds(event.get('endTime')) }</Text>}
+        <Text style={[styles.hourLabel, active && activeStyle.hourLabel]} >
+        { getTimeFromMilliseconds(event.get('startTime')) }</Text>
+        {event.get('endTime') && active && <Text style={[styles.hourLabel, active && activeStyle.hourLabel]} >
+        { getTimeFromMilliseconds(event.get('endTime')) }</Text>}
       </View>
       <View style={styles.bread} >
-        <Text style={ styles.breadLabel }>{ event.get('name') }</Text>
-        <Text numberOfLines={3} style={styles.breadText} >{ event.get('description') }</Text>
+        <Text style={ [styles.breadLabel, active && activeStyle.breadLabel] }>{ event.get('name') }</Text>
+        <Text numberOfLines={3} style={[styles.breadText, active && activeStyle.breadLabel]} >{ event.get('description') }</Text>
       </View>
       <View style={ [styles.dot, active && activeStyle.dot] }></View>
     </View>
@@ -32,6 +34,9 @@ const activeStyle = StyleSheet.create({
   },
   hourLabel: {
     color: 'white'
+  },
+  breadLabel: {
+    color: '#2f2f2f'
   }
 })
 
