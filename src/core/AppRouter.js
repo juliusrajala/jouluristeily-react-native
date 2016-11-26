@@ -1,7 +1,7 @@
 import React from 'react';
-import LandingView from '../components/LandingView';
-import CabinView from '../components/CabinView';
-import ScheduleView from '../components/ScheduleView';
+import LandingView from '../ui/LandingView';
+import CabinView from '../ui/CabinView';
+import ScheduleView from '../ui/ScheduleView';
 
 export default function AppRouter(props){
   const key = props.scene.route.key;

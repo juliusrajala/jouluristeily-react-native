@@ -1,8 +1,7 @@
 import React, { PropTypes } from 'react';
 import {connect } from 'react-redux';
 
-import { cabinActions } from '../stores/Cabins';
-import { modalActions } from '../stores/Modals';
+import { modalActions } from '../../stores/Modals';
 
 // TODO: Turn into a stateful component
 // Move most items from CabinView props to here.

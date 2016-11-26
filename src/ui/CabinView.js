@@ -7,39 +7,26 @@ import Icon from 'react-native-vector-icons/EvilIcons';
 import { modalActions } from '../stores/Modals';
 import { cabinActions, getCabinsFromStorage } from '../stores/Cabins';
 
-import CabinItem from './CabinItem';
-import FloatingActionButton from './partials/FloatingActionButton';
-import CruiseModal from './CruiseModal';
+import CabinItem from './components/CabinItem';
+import FloatingActionButton from './components/FloatingActionButton';
+import CruiseModal from './components/CruiseModal';
 
-const CabinView = ({ cabins, modals, openModal, addCabin, removeCabin, getCabins, dispatch }) => {
-  if(!cabins.get('ready')){
-    console.log('We dont have cabins')
-    return (
-      <View style={styles.CabinView}>
-        <View style={styles.cabinViewPlaceholder}>
-          <Text style={styles.placeholderText}>
-            Sinulla ei ole tallennettuja hyttejä. Voit lisätä hyttejä painamalla nappia.
-          </Text>
-        </View>
-      </View>
-    )
-  }
-
+const CabinView = ({ cabins, modals, openModal, addCabin, removeCabin, getCabins}) => {
+  const cabinsReady = cabins.get('ready');
   const savedCabins = cabins.get('cabins');
-
-  console.log('We have cabins');
-
   const addCabinModalId = 'AddCabinModal';
+
+  console.log('savedCabins', cabins.toJS())
 
   return (
     <View style={styles.CabinView}>
-      { savedCabins 
+      { cabinsReady && savedCabins 
         ? <ScrollView style={styles.cabinList}>
         { savedCabins.toArray().map((cabin, i) => 
           <CabinItem 
             key={cabin.get('cabinNumber')}
             removeCabin={removeCabin}
-            cabinNumber={cabin.get('cabinNumber')} 
+            cabinNumber={cabin.get('cabinNumber')}
             cabinDescription={cabin.get('cabinDescription')} /> )
         }
         </ScrollView>

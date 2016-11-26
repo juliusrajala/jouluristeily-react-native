@@ -11,23 +11,33 @@ export const cabinActionsTypes = {
   cabin_added: 'cabin_added',
   cabin_removed: 'cabin_removed',
   cabins_loading: 'cabins_loading',
-  cabins_loaded: 'cabins_loaded'
+  cabins_loaded: 'cabins_loaded',
+  cabins_error: 'cabins_error'
 };
 
 export const cabinActions = {
   addCabin(cabinNumber, cabinDescription) {
-    return createAction(cabinActionsTypes.cabin_added,
-      Map({ cabinNumber, cabinDescription }));
+    console.log('addCabin called');
+    return dispatch => {
+      console.log('Second level here.');
+      dispatch(createAction(cabinActionsTypes.cabin_added, Map({cabinNumber, cabinDescription})));
+      localStorage.cabins.add({
+        cabinNumber: cabinNumber,
+        cabinDescription: cabinDescription
+      });
+    }
   },
   removeCabin(cabinNumber){
     return createAction(cabinActionsTypes.cabin_removed, cabinNumber);
   }
 };
 
+// Helpers
+
+// mapItems runs over the list of cabins on localStorage and turns them into a js-object.
 function mapItems(response){
-  if(!response) return Promise.resolve();
   let cabins = {};
-  resp.map(cabin => {
+  response.map(cabin => {
     cabins[cabin.cabinNumber] = {
       cabinNumber: cabin.cabinNumber,
       cabinDescription: cabin.cabinDescription
@@ -42,14 +52,17 @@ export function getCabinsFromStorage(){
     dispatch(createAction(cabinActionsTypes.cabins_loading, true));
     return localStorage.cabins.find()
       .then(resp => {
-        console.log('response is,', resp)
+        if(!resp) {
+          console.log('No cabins found');
+          dispatch(createAction(cabinActionsTypes.cabins_error));
+          return Promise.resolve();
+        }
         const cabins = mapItems(resp);
-        console.log('cabins are', cabins);
-        dispatch(createAction(cabinActionsTypes.cabins_loaded, cabins))
+        dispatch(createAction(cabinActionsTypes.cabins_loaded, fromJS(cabins)))
       })
       .catch(err => {
         console.log('Error', err);
-      })
+      });
   }
 }
 
@@ -63,15 +76,19 @@ function cabins(state=initialState, action) {
   switch(action.type) {
     case cabinActionsTypes.cabins_loading:
       console.log('cabins loading');
-      return state;
+      return state.set('loading', true);
 
     case cabinActionsTypes.cabins_loaded:
-      console.log('cabins loaded', action.payload)
+      console.log('cabins loaded', action.payload.toJS())
       return state.set('loading', false)
         .set('ready', true)
-        .set('cabins', action.payload.cabins);
+        .set('cabins', action.payload);
+
+    case cabinActionsTypes.cabins_error:
+      return state;
 
     case cabinActionsTypes.cabin_added:
+      console.log('Adding cabin', action.payload.toJS());
       const cabin = action.payload;
       return state.setIn(['cabins', action.payload.get('cabinNumber')], action.payload);
 

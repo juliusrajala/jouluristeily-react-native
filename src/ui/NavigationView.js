@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {NavigationExperimental, View, StyleSheet, BackAndroid} from 'react-native';
 import {navigationActions} from '../stores/ExperimentalNavigation';
 import AppRouter from '../core/AppRouter';
-import NavigationBar from './partials/NavigationBar';
+import NavigationBar from './components/NavigationBar';
 
 const {
   CardStack: NavigationCardStack,
