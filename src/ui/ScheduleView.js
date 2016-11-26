@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   schedulesHeader: {
     backgroundColor: '#2f2f2f',
     justifyContent: 'space-around',
-    height: 30,
+    height: 50,
     elevation: 4
   },
   schedulesTitle: {
