@@ -1,39 +1,79 @@
+import _ from 'lodash';
+import { fromJS } from 'immutable';
 import React, { PropTypes } from 'react';
 import { View, ScrollView, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import ScheduleItem from './components/ScheduleItem';
+import HoursItem from './components/OpeningHoursItem';
 import FloatingActionButton from './components/FloatingActionButton';
+import { changeScheduleView } from '../stores/Schedules';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
-const ScheduleView = ({ schedules }) => {
+const ScheduleView = ({ visible, hours, schedules, changeScheduleView }) => {
   const events = schedules.get('events') || false;
-  const sortedEvents = events && events.sort((a, b) =>
-    a.get('startTime') > b.get('startTime'));
-  console.log(new Date().getTime())
+  const openingHours = hours.get('hours') || false;
+  const sortedEvents = events && events.sort((a, b) => a.get('startTime') > b.get('startTime'));
+  let tempObject = {};
+  const storeCategories = _.uniq(openingHours.map(item => item.get('category'))
+    .toJS())
+    .map(item => {
+      tempObject[item] = openingHours.filter(location => location.get('category') === item).toJS();
+    });
+
+  const hoursByCategory = fromJS(tempObject);
+
+  const renderEvents = () => 
+    sortedEvents && sortedEvents.toArray().map((event, i) =>
+      <ScheduleItem active={i===2} key={i} event={ event } /> );
+
+  const renderHours = () => {
+    console.log('hoursByCategory', hoursByCategory.toJS())
+    return hoursByCategory && hoursByCategory.toArray().map((category, i) => {
+      return (
+        <View key={'hoursCategory'+i}>
+          <Text style={styles.categoryLabel} >{category.first().get('category')}</Text>
+          { category.toArray().map((location, j) =>
+            <HoursItem key={'hoursitem' + j} location={ location } /> )
+          }
+        </View>
+      )
+    });
+    
+  }
+
 
   return (
     <View style={ styles.schedules } >
       <View style={ styles.schedulesHeader }>
-      <Text style={ styles.schedulesTitle }>Aikataulu</Text>
+        <Text style={ styles.schedulesTitle }>{visible === 'schedule' ? 'Aikataulu' : 'Aukioloajat'}</Text>
       </View>
+      
       <ScrollView style={ styles.scheduleList } >
-      { sortedEvents
-        ? sortedEvents.toArray().map((event, i) =>
-          <ScheduleItem active={i===2} key={i} event={ event } /> )
-        : <Text>No Events</Text>
-      }
+        {visible === 'schedule' ? renderEvents() : renderHours()}
       </ScrollView>
-      <FloatingActionButton
+
+      { visible === 'schedule' 
+      ? <FloatingActionButton
         backgroundColor={'firebrick'}
-        action={() => {console.log('testi');}}>
+        action={() => changeScheduleView('hours')}>
         <Icon style={ styles.fabLabel } name='cart' color='#fff'/>
       </FloatingActionButton>
+      : <FloatingActionButton
+        backgroundColor={'firebrick'}
+        action={() => changeScheduleView('schedule')}>
+        <Icon style={ styles.fabLabel } name='cart' color='#fff'/>
+      </FloatingActionButton>
+      }
+
     </View>
   );
 };
 
 ScheduleView.propTypes = {
-  schedules: PropTypes.object
+  visible: PropTypes.string,
+  schedules: PropTypes.object,
+  hours: PropTypes.object,
+  changeScheduleView: PropTypes.func
 };
 
 const styles = StyleSheet.create({
@@ -63,8 +103,12 @@ const styles = StyleSheet.create({
     left: 0,
     backgroundColor: '#2f2f2f'
   },
-  scheduledEvent: {
-
+  categoryLabel: {
+    fontSize: 20,
+    color: 'white',
+    margin: 5,
+    marginLeft: 12,
+    fontWeight: '900'
   },
   fabLabel: {
     fontSize: 40
@@ -73,6 +117,12 @@ const styles = StyleSheet.create({
 
 export default connect(
   (state, props) => ({
+    visible: state.schedules.get('visible'),
     schedules: state.schedules.get('schedule'),
     hours: state.schedules.get('hours')
+  }),
+  dispatch => ({
+    changeScheduleView(view) {
+      dispatch(changeScheduleView(view))
+    }
   }))(ScheduleView);
