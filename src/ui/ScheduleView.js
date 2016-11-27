@@ -73,5 +73,6 @@ const styles = StyleSheet.create({
 
 export default connect(
   (state, props) => ({
-    schedules: state.schedules
+    schedules: state.schedules.get('schedule'),
+    hours: state.schedules.get('hours')
   }))(ScheduleView);
