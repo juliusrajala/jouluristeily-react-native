@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start"
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "android-dev": "node node_modules/react-native/local-cli/cli.js run-android"
   },
   "dependencies": {
     "chai": "^3.5.0",
@@ -11,9 +12,11 @@
     "mocha": "^3.0.2",
     "react": "15.3.2",
     "react-native": "0.33.0",
+    "react-native-store": "^0.4.1",
     "react-native-photo-view": "^1.2.0",
     "react-native-vector-icons": "^3.0.0",
     "react-redux": "^4.4.5",
-    "redux": "^3.6.0"
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.1.0"
   }
 }

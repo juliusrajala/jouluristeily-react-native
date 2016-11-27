@@ -1,11 +1,12 @@
-import { combineReducers,  createStore } from 'redux';
+import {combineReducers} from 'redux';
+import thunk from 'redux-thunk';
 import cabins from './Cabins';
 import modals from './Modals';
 import schedules from './Schedules';
 import navi from './ExperimentalNavigation';
 import maps from './Maps';
 
-const store = combineReducers({
+const rootReducer = combineReducers({
   cabins,
   modals,
   schedules,
@@ -13,4 +14,5 @@ const store = combineReducers({
   maps
 });
 
-export default createStore(store);
+export default rootReducer;
+

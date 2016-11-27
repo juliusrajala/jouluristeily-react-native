@@ -1,8 +1,7 @@
 import React, { PropTypes } from 'react';
 import {connect } from 'react-redux';
 
-import { cabinActions } from '../stores/Cabins';
-import { modalActions } from '../stores/Modals';
+import { modalActions } from '../../stores/Modals';
 
 // TODO: Turn into a stateful component
 // Move most items from CabinView props to here.
@@ -32,10 +31,10 @@ const CruiseModal = React.createClass({
   },
   closeModal(){
     if(!this.state.cabinNumber || !this.state.cabinDescription)
-      return this.props.dispatch(modalActions.closeModal(this.props.modalId));
+      return this.props.closeModal(this.props.modalId);
 
-    return Promise.resolve(this.props.dispatch(cabinActions.addCabin(this.state.cabinNumber, this.state.cabinDescription)))
-      .then(this.props.dispatch(modalActions.closeModal(this.props.modalId)));
+    return Promise.resolve(this.props.addCabin(this.state.cabinNumber, this.state.cabinDescription))
+      .then(this.props.closeModal(this.props.modalId));
   },
   render(){
     return (
@@ -43,12 +42,11 @@ const CruiseModal = React.createClass({
         <Modal
           style={styles.modalContainer}
           animationType={"slide"}
-          transparent={true}
+          transparent={false}
           visible={this.props.visible}
           onRequestClose={() => {console.log('Modal closed')}}>
 
-          <View
-            style={styles.modalHeader}>
+          <View style={styles.modalHeader}>
             <Text style={styles.modalTitle}>Lisää hytti</Text>
           </View>
           
@@ -90,7 +88,8 @@ const CruiseModal = React.createClass({
 CruiseModal.propTypes = {
   modalId: PropTypes.string.isRequired,
   visible: PropTypes.bool.isRequired,
-  dispatch: PropTypes.func.isRequired
+  addCabin: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired
 };
 
 const styles = StyleSheet.create({
@@ -98,6 +97,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     right: 0,
+    elevation: 2,
     top: 0,
     bottom: 0,
     backgroundColor: '#2f2f2f',
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     backgroundColor: '#f2f2f2',
-    elevation: 4,
+    flex: 1,
     padding: 40
   },
   modalHeader: {
@@ -140,5 +140,11 @@ const styles = StyleSheet.create({
 });
 
 export default connect(
-
-)(CruiseModal);
+  (state, props) => ({
+    visible: state.modals.getIn(['modals', props.modalId], false)
+  }),
+  dispatch => ({
+    closeModal(modalId) {
+      dispatch(modalActions.closeModal(modalId));
+    }
+  }))(CruiseModal);

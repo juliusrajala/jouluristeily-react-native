@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import { View, ScrollView, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import ScheduleItem from './partials/ScheduleItem';
-import FloatingActionButton from './partials/FloatingActionButton';
+import ScheduleItem from './components/ScheduleItem';
+import FloatingActionButton from './components/FloatingActionButton';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
 const ScheduleView = ({ schedules }) => {
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   schedulesHeader: {
     backgroundColor: '#2f2f2f',
     justifyContent: 'space-around',
-    height: 30,
+    height: 50,
     elevation: 4
   },
   schedulesTitle: {
