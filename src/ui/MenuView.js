@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     fontSize: 18,
     fontFamily: 'bungee',
-    color: 'gainsboro',
+    color: 'white',
     textShadowOffset: {width: 2, height: 2},
     textShadowRadius: 1,
     textShadowColor: '#503a3a'
