@@ -11,7 +11,7 @@ const NaviTab = ({ navItem, action, active }) => {
     <TouchableOpacity
       onPress={ () => action(navItem.get('tab')) }
       style={ styles.navigationTab }>
-      <Icon style={ styles.navigationIcon } name={ icon } size={ 30 } color="#fff"/>
+      <Icon style={ styles.navigationIcon } name={ icon } size={ 30 } color={ active ? "#fff" : '#FF8A80' } />
       { active && <View style={ styles.activeTab }></View> }
     </TouchableOpacity>
   );
@@ -39,12 +39,11 @@ const styles = StyleSheet.create({
   navigationIcon: {
     fontSize: 40,
     textAlign: 'center',
-    justifyContent: 'flex-end',
-    color: 'white'
+    justifyContent: 'flex-end'
   },
   activeTab: {
-    height: 3,
-    backgroundColor: 'maroon',
+    height: 2,
+    backgroundColor: 'white',
     position: 'absolute',
     bottom: 0,
     right: 0,

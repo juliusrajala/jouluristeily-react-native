@@ -8,7 +8,7 @@ import MenuView from '../ui/MenuView';
 
 export default function AppRouter(props){
   const key = props.scene.route.key;
-  console.log('key', key, props.scene)
+  console.log('key', key, props.scene);
   switch(key){
     case 'cabinsView':
       console.log('Moving to cabin view');

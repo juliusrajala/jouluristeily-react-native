@@ -1,11 +1,10 @@
 import React, {Component, PropTypes} from 'react';
 import {View, StyleSheet, Text, TouchableOpacity, Animated, Easing} from 'react-native';
-import { getTimeFromMilliseconds } from '../../utils/dateTime';
+import { getTimeFromMilliseconds, isTimeRelevant } from '../../utils/dateTime';
 
 class OpeningHoursItem extends Component {
   constructor(props) {
     super(props);
-    console.log('props', props);
     this.state = {
       flexAnim: 100
     }
@@ -27,9 +26,15 @@ class OpeningHoursItem extends Component {
 
   render() {
     const location = this.props.location;
+    const currentTime = this.props.currentTime;
     const name = location.get('name');
     const hours = location.get('times');
     const deck = location.get('deck');
+    const isActive = hours.filter(whenOpen => {
+      return isTimeRelevant(currentTime, whenOpen.get('startTime'), whenOpen.get('endTime'));
+    }).size > 0;
+
+    console.log('isTabActive', isActive);
 
     return (
       <Animated.View style={[styles.item, {height: this.state.flexAnim}]}>
@@ -42,14 +47,15 @@ class OpeningHoursItem extends Component {
           <Text key={i} style={styles.hoursListItem}>{`${getTimeFromMilliseconds(hours.get('startTime'))} - ${getTimeFromMilliseconds(hours.get('endTime'))}`}</Text> 
         )}
         </View>
-        <View style={styles.dot}></View>
+        <View style={[styles.dot, isActive && {backgroundColor: '#43A047'}]}></View>
       </Animated.View>
     )
   }
 }
 
 OpeningHoursItem.propTypes = {
-  location: PropTypes.object
+  location: PropTypes.object,
+  time: PropTypes.object
 };
 
 const styles = StyleSheet.create({
@@ -90,8 +96,6 @@ const styles = StyleSheet.create({
     height: 20,
     backgroundColor: 'indianred',
     position: 'absolute',
-    borderColor: '#2f2f2f',
-    borderWidth: 2,
     bottom: 10,
     elevation: 2,
     left: 5,

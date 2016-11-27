@@ -1,15 +1,17 @@
 import _ from 'lodash';
 import { fromJS } from 'immutable';
 import React, { PropTypes } from 'react';
-import { View, ScrollView, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
+import { View, ScrollView, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/EvilIcons';
+
 import ScheduleItem from './components/ScheduleItem';
 import HoursItem from './components/OpeningHoursItem';
 import FloatingActionButton from './components/FloatingActionButton';
 import { changeScheduleView } from '../stores/Schedules';
-import Icon from 'react-native-vector-icons/EvilIcons';
+import { isTimeRelevant } from '../utils/dateTime';
 
-const ScheduleView = ({ visible, hours, schedules, changeScheduleView }) => {
+const ScheduleView = ({ visible, hours, schedules, changeScheduleView, time }) => {
   const events = schedules.get('events') || false;
   const openingHours = hours.get('hours') || false;
   const sortedEvents = events && events.sort((a, b) => a.get('startTime') > b.get('startTime'));
@@ -23,24 +25,25 @@ const ScheduleView = ({ visible, hours, schedules, changeScheduleView }) => {
   const hoursByCategory = fromJS(tempObject);
 
   const renderEvents = () => 
-    sortedEvents && sortedEvents.toArray().map((event, i) =>
-      <ScheduleItem active={i===2} key={i} event={ event } /> );
+    sortedEvents && sortedEvents.toArray().map((event, i) => {
+      const startTime = event.get('startTime');
+      const endTime = event.get('endTime');
+      
+      return <ScheduleItem 
+        active={ !endTime || (time && isTimeRelevant(time, startTime, endTime))} 
+        key={i} event={ event } /> 
+      });
 
   const renderHours = () => {
     console.log('hoursByCategory', hoursByCategory.toJS())
-    return hoursByCategory && hoursByCategory.toArray().map((category, i) => {
-      return (
+    return hoursByCategory && hoursByCategory.toArray().map((category, i) => (
         <View key={'hoursCategory'+i}>
           <Text style={styles.categoryLabel} >{category.first().get('category')}</Text>
           { category.toArray().map((location, j) =>
-            <HoursItem key={'hoursitem' + j} location={ location } /> )
+            <HoursItem currentTime={time && time} key={'hoursitem' + j} location={ location } /> )
           }
-        </View>
-      )
-    });
-    
+        </View> ));
   }
-
 
   return (
     <View style={ styles.schedules } >
@@ -61,7 +64,7 @@ const ScheduleView = ({ visible, hours, schedules, changeScheduleView }) => {
       : <FloatingActionButton
         backgroundColor={'firebrick'}
         action={() => changeScheduleView('schedule')}>
-        <Icon style={ styles.fabLabel } name='cart' color='#fff'/>
+        <Icon style={ styles.fabLabel } name='calendar' color='#fff'/>
       </FloatingActionButton>
       }
 
@@ -111,7 +114,7 @@ const styles = StyleSheet.create({
     fontWeight: '900'
   },
   fabLabel: {
-    fontSize: 40
+    fontSize: 50
   }
 });
 
@@ -119,7 +122,8 @@ export default connect(
   (state, props) => ({
     visible: state.schedules.get('visible'),
     schedules: state.schedules.get('schedule'),
-    hours: state.schedules.get('hours')
+    hours: state.schedules.get('hours'),
+    time: new Date()
   }),
   dispatch => ({
     changeScheduleView(view) {

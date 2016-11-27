@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingBottom: 20,
     fontSize: 20,
-    fontWeight: '200'
+    fontWeight: '900'
   },
   closeModalLabel: {
     position: 'relative',
@@ -134,8 +134,8 @@ const styles = StyleSheet.create({
   modalField: {
     height: 40,
     color: 'gray',
-    borderColor: 'gainsboro', 
-    borderWidth: 1
+    fontSize: 16,
+    fontWeight: '200'
   }
 });
 

@@ -8,7 +8,9 @@ class ScheduleItem extends Component {
     this.state = {
       // rowAnim: TODO: Grow max-rows to 5
       // hourAnim: TODO: Display both rows.
-      flexAnim: new Animated.Value(100)
+      dotAnim: new Animated.Value(40),
+      flexAnim: new Animated.Value(100),
+      open: false
     }
   }
 
@@ -17,18 +19,31 @@ class ScheduleItem extends Component {
   }
 
   resizeItem() {
+    this.setState({open: !this.state.open});
     console.log('Calling for resizeItem', this.state.flexAnim);
-    this.state.flexAnim._value === 100 ? this.animateToSize(200) : this.animateToSize(100);
+    this.state.flexAnim._value === 100 ? this.animateToSize(150, 65) : this.animateToSize(100, 40);
   }
 
-  animateToSize(target) {
-    Animated.timing(
-      this.state.flexAnim, {
-        toValue: target,
-        easing: Easing.bounce,
-        duration: 1000
-      }
-    ).start();
+  animateToSize(flex, dot) {
+    // Animated.timing(
+    //   this.state.flexAnim, {
+    //     toValue: target,
+    //     easing: Easing.elastic(2),
+    //     duration: 700
+    //   }
+    // ).start();
+    Animated.parallel([
+      Animated.timing(this.state.flexAnim, {
+        toValue: flex,
+        easing: Easing.elastic(2),
+        duration: 700
+      }),
+      Animated.timing(this.state.dotAnim, {
+        toValue: dot,
+        easing: Easing.elastic(2),
+        duration: 700
+      })
+    ]).start();
   }
 
   render() {
@@ -39,15 +54,15 @@ class ScheduleItem extends Component {
         <View style={ [styles.times, active && activeStyle.times] } >
           <Text style={[styles.hourLabel, active && activeStyle.hourLabel]} >
           { getTimeFromMilliseconds(event.get('startTime')) }</Text>
-          {event.get('endTime') && active && <Text style={[styles.hourLabel, active && activeStyle.hourLabel]} >
+          {event.get('endTime') && (active || this.state.open) && <Text style={[styles.hourLabel, active && activeStyle.hourLabel]} >
           { getTimeFromMilliseconds(event.get('endTime')) }</Text>}
         </View>
         <TouchableOpacity style={styles.bread}
         onPress={() => this.resizeItem()} >
           <Text style={ [styles.breadLabel, active && activeStyle.breadLabel] }>{ event.get('name') }</Text>
-          <Text numberOfLines={3} style={[styles.breadText, active && activeStyle.breadLabel]} >{ event.get('description') }</Text>
+          <Text numberOfLines={this.state.open ? 5 : 3} style={[styles.breadText, active && activeStyle.breadLabel]} >{ event.get('description') }</Text>
         </TouchableOpacity>
-        <View style={ [styles.dot, active && activeStyle.dot] }></View>
+        <Animated.View style={ [styles.dot, active && activeStyle.dot, {top: this.state.dotAnim}] }></Animated.View>
       </Animated.View>
     )
   }

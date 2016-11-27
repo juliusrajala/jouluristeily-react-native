@@ -8,7 +8,7 @@ const CabinItem = ({cabinNumber, cabinDescription, removeCabin}) => {
       <View style={ styles.cabinListItemActions}>
         <TouchableOpacity
           onPress={() => removeCabin(cabinNumber)} >
-          <Icon style={ styles.cabinListItemActionButton} name="close" size={30} />
+          <Icon style={ styles.cabinListItemActionButton} name="close" size={40} color="#2f2f2f" />
         </TouchableOpacity>
       </View>
       <Text style={styles.cabinListItemLabel}>
@@ -49,9 +49,8 @@ const styles = StyleSheet.create({
     top: 10
   },
   cabinListItemActionButton: {
-    flex: 1,
-    margin: 5,
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
+    alignSelf: 'center'
   },
   cabinListItemLabel: {
     fontWeight: '900',

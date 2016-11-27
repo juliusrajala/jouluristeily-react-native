@@ -8,3 +8,8 @@ export const getTimeFromMilliseconds = (datetime) => {
   const hours = date.getHours() < 10 ? `0${ date.getHours().toString() }` : date.getHours();
   return `${ hours }.${date.getMinutes() !== 0 ? date.getMinutes() : '00' }`;
 };
+
+export const isTimeRelevant = (current, startTime, endTime) => {
+  const sweetSpot = current.getMilliseconds();
+  return current >= startTime && current < endTime;
+} 
