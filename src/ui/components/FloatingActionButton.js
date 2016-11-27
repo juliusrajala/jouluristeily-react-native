@@ -1,13 +1,17 @@
 import React, {PropTypes} from 'react';
-import {TouchableOpacity, StyleSheet} from 'react-native';
+import {TouchableNativeFeedback, View, StyleSheet} from 'react-native';
 
 const FloatingActionButton = ({action, backgroundColor, target, children}) => {
   return (
-    <TouchableOpacity 
+    <TouchableNativeFeedback
       onPress={() => action(target)}
-      style={[styles.addButton, backgroundColor && {backgroundColor: backgroundColor}]}>
-      {children}
-    </TouchableOpacity>
+      style={[styles.buttonWrapper]}
+      useForeground={true}
+      background={TouchableNativeFeedback.Ripple('white', false)}>
+      <View style={[styles.addButton, backgroundColor && {backgroundColor: backgroundColor}]}>
+        {children}
+      </View>
+    </TouchableNativeFeedback>
   )
 };
 
@@ -20,17 +24,21 @@ FloatingActionButton.propTypes = {
 
 
 const styles = StyleSheet.create({
+  buttonWrapper: {
+    borderRadius: 50,
+    width: 70,
+    height: 70
+  },
   addButton: {
     position: 'absolute',
     right: 20,
     bottom: 20,
     alignItems: 'center',
-    width: 60,
-    height: 60,
+    width: 70,
+    height: 70,
     borderRadius: 50,
-    elevation: 2,
+    elevation: 4,
     justifyContent: 'center',
-    backgroundColor: 'white'
   }
 })
 

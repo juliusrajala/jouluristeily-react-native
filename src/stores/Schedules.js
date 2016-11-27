@@ -1,5 +1,6 @@
 import initialState from './initial/schedule';
 import { fromJS } from 'immutable';
+import createAction from '../utils/createAction';
 
 const EVENT_URL = 'https://jouluristeily-api.herokuapp.com/events';
 const HOURS_URL = 'https://jouluristeily-api.herokuapp.com/openingHours';
@@ -20,9 +21,14 @@ export const scheduleActions = {
   }
 }
 
+export function changeScheduleView(view){
+  return createAction(scheduleActionTypes.changeView, view);
+}
+
 export const scheduleActionTypes = {
-  fetchEvents: 'scheduleActionTypes.fetchEvents',
-  gotEvents: 'scheduleActionTypes.gotEvents'
+  fetchEvents: 'scheduleActionTypes.fetch_events',
+  gotEvents: 'scheduleActionTypes.got_events',
+  changeView: 'scheduleActionTypes.change_view'
 };
 
 function scheduleReducer(state = initialState, action){
@@ -30,6 +36,8 @@ function scheduleReducer(state = initialState, action){
     case scheduleActionTypes.gotEvents:
       const data = fromJS(action.payload);
       return data.get('iteration') !== state.get('iteration') ? data : state;
+    case scheduleActionTypes.changeView:
+      return state.set('visible', action.payload);
     default:
       return state;
   }
