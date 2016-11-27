@@ -19,7 +19,6 @@ export const cabinActions = {
   addCabin(cabinNumber, cabinDescription) {
     console.log('addCabin called');
     return dispatch => {
-      console.log('Second level here.');
       dispatch(createAction(cabinActionsTypes.cabin_added, Map({cabinNumber, cabinDescription})));
       localStorage.cabins.add({
         cabinNumber: cabinNumber,
@@ -85,7 +84,8 @@ function cabins(state=initialState, action) {
         .set('cabins', action.payload);
 
     case cabinActionsTypes.cabins_error:
-      return state;
+      console.log('No cabins saved.');
+      return state.set('ready', true);
 
     case cabinActionsTypes.cabin_added:
       console.log('Adding cabin', action.payload.toJS());

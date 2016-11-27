@@ -1,24 +1,57 @@
-import React, { PropTypes } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import React, {Component, PropTypes} from 'react';
+import {View, StyleSheet, Text, TouchableOpacity, Animated, Easing} from 'react-native';
 import { getTimeFromMilliseconds } from '../../utils/dateTime';
 
-const ScheduleItem = ({ event, active }) => {
-  return (
-    <View style={ styles.item } >
-      <View style={ [styles.times, active && activeStyle.times] } >
-        <Text style={[styles.hourLabel, active && activeStyle.hourLabel]} >
-        { getTimeFromMilliseconds(event.get('startTime')) }</Text>
-        {event.get('endTime') && active && <Text style={[styles.hourLabel, active && activeStyle.hourLabel]} >
-        { getTimeFromMilliseconds(event.get('endTime')) }</Text>}
-      </View>
-      <View style={styles.bread} >
-        <Text style={ [styles.breadLabel, active && activeStyle.breadLabel] }>{ event.get('name') }</Text>
-        <Text numberOfLines={3} style={[styles.breadText, active && activeStyle.breadLabel]} >{ event.get('description') }</Text>
-      </View>
-      <View style={ [styles.dot, active && activeStyle.dot] }></View>
-    </View>
-  )
-};
+class ScheduleItem extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      // rowAnim: TODO: Grow max-rows to 5
+      // hourAnim: TODO: Display both rows.
+      flexAnim: new Animated.Value(100)
+    }
+  }
+
+  componentDidMount() {
+
+  }
+
+  resizeItem() {
+    console.log('Calling for resizeItem', this.state.flexAnim);
+    this.state.flexAnim._value === 100 ? this.animateToSize(200) : this.animateToSize(100);
+  }
+
+  animateToSize(target) {
+    Animated.timing(
+      this.state.flexAnim, {
+        toValue: target,
+        easing: Easing.bounce,
+        duration: 1000
+      }
+    ).start();
+  }
+
+  render() {
+    const event = this.props.event;
+    const active = this.props.active;
+    return (
+      <Animated.View style={ [styles.item, {height: this.state.flexAnim}] }>
+        <View style={ [styles.times, active && activeStyle.times] } >
+          <Text style={[styles.hourLabel, active && activeStyle.hourLabel]} >
+          { getTimeFromMilliseconds(event.get('startTime')) }</Text>
+          {event.get('endTime') && active && <Text style={[styles.hourLabel, active && activeStyle.hourLabel]} >
+          { getTimeFromMilliseconds(event.get('endTime')) }</Text>}
+        </View>
+        <TouchableOpacity style={styles.bread}
+        onPress={() => this.resizeItem()} >
+          <Text style={ [styles.breadLabel, active && activeStyle.breadLabel] }>{ event.get('name') }</Text>
+          <Text numberOfLines={3} style={[styles.breadText, active && activeStyle.breadLabel]} >{ event.get('description') }</Text>
+        </TouchableOpacity>
+        <View style={ [styles.dot, active && activeStyle.dot] }></View>
+      </Animated.View>
+    )
+  }
+}
 
 ScheduleItem.propTypes = {
   event: PropTypes.object,
@@ -42,12 +75,11 @@ const activeStyle = StyleSheet.create({
 
 const styles = StyleSheet.create({
   item: {
-    height: 100,
     flexDirection: 'row',
     left: 0,
     right: 0,
     elevation: 3,
-    borderRadius: 2    
+    borderRadius: 2
   },
   times: {
     justifyContent: 'space-around',

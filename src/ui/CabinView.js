@@ -20,7 +20,7 @@ const CabinView = ({ cabins, modals, openModal, addCabin, removeCabin, getCabins
 
   return (
     <View style={styles.CabinView}>
-      { cabinsReady && savedCabins 
+      { cabinsReady && savedCabins.size > 0
         ? <ScrollView style={styles.cabinList}>
         { savedCabins.toArray().map((cabin, i) => 
           <CabinItem 
