@@ -14,7 +14,7 @@ import { isTimeRelevant } from '../utils/dateTime';
 const ScheduleView = ({ visible, hours, schedules, changeScheduleView, time }) => {
   const events = schedules.get('events') || false;
   const openingHours = hours.get('hours') || false;
-  const sortedEvents = events && events.sort((a, b) => a.get('startTime') > b.get('startTime'));
+  const sortedEvents = events && events.sort((a, b) => a.get('epochStart') > b.get('epochStart'));
   let tempObject = {};
   const storeCategories = _.uniq(openingHours.map(item => item.get('category'))
     .toJS())
@@ -26,19 +26,19 @@ const ScheduleView = ({ visible, hours, schedules, changeScheduleView, time }) =
 
   const renderEvents = () => 
     sortedEvents && sortedEvents.toArray().map((event, i) => {
-      const startTime = event.get('startTime');
-      const endTime = event.get('endTime');
+      const epochStart = event.get('epochStart');
+      const epochEnd = event.get('epochEnd');
       
       return <ScheduleItem 
-        active={ !endTime || (time && isTimeRelevant(time, startTime, endTime))} 
-        key={i} event={ event } /> 
-      });
+        active={ epochEnd === null || (time && isTimeRelevant(time, epochStart, epochEnd))} 
+        key={i} event={ event } />
+    });
 
   const renderHours = () => {
     console.log('hoursByCategory', hoursByCategory.toJS())
     return hoursByCategory && hoursByCategory.toArray().map((category, i) => (
         <View key={'hoursCategory'+i}>
-          <Text style={styles.categoryLabel} >{category.first().get('category')}</Text>
+          <Text style={styles.categoryLabel} >{category.first().get('category')} - {time}</Text>
           { category.toArray().map((location, j) =>
             <HoursItem currentTime={time && time} key={'hoursitem' + j} location={ location } /> )
           }

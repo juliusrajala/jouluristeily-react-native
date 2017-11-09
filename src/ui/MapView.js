@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 import { View, ScrollView, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { mapActions } from '../stores/Maps';
-import PhotoView from 'react-native-photo-view';
 
 const MapView = ({ maps, switchMap }) => {
   const readyMaps = maps.toJS();
@@ -18,14 +17,6 @@ const MapView = ({ maps, switchMap }) => {
 
   return (
     <View style={ styles.container }>
-      <PhotoView
-        style={ styles.map }
-        source={ selected ? images[selected] : images.default }
-        minimumZoomScale={1}
-        maximumZoomScale={4}
-        fadeDuration={0}
-        androidScaleType="centerInside"
-        style={{flex: 1}} />
       <View style={ styles.tags }>
         <TouchableOpacity
           onPress={() => switchMap(mapTags.shops)}>

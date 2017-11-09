@@ -42,7 +42,7 @@ const MenuView = ({ menu }) => {
 
 const styles = StyleSheet.create({
   menuView: {
-    backgroundColor: '#8a1010',
+    backgroundColor: '#363636',
     flex: 1,
     bottom: 0,
     left: 0,

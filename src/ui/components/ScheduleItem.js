@@ -25,13 +25,6 @@ class ScheduleItem extends Component {
   }
 
   animateToSize(flex, dot) {
-    // Animated.timing(
-    //   this.state.flexAnim, {
-    //     toValue: target,
-    //     easing: Easing.elastic(2),
-    //     duration: 700
-    //   }
-    // ).start();
     Animated.parallel([
       Animated.timing(this.state.flexAnim, {
         toValue: flex,
@@ -53,12 +46,12 @@ class ScheduleItem extends Component {
       <Animated.View style={ [styles.item, {height: this.state.flexAnim}] }>
         <View style={ [styles.times, active && activeStyle.times] } >
           <Text style={[styles.hourLabel, active && activeStyle.hourLabel]} >
-          { getTimeFromMilliseconds(event.get('startTime')) }</Text>
-          {event.get('endTime') && (active || this.state.open) && <Text style={[styles.hourLabel, active && activeStyle.hourLabel]} >
-          { getTimeFromMilliseconds(event.get('endTime')) }</Text>}
+          { getTimeFromMilliseconds(event.get('epochStart')) }</Text>
+          {event.get('epochEnd') && (active || this.state.open) && <Text style={[styles.hourLabel, active && activeStyle.hourLabel]} >
+          { getTimeFromMilliseconds(event.get('epochEnd')) }</Text>}
         </View>
         <TouchableOpacity style={styles.bread}
-        onPress={() => this.resizeItem()} >
+          onPress={() => this.resizeItem()} >
           <Text style={ [styles.breadLabel, active && activeStyle.breadLabel] }>{ event.get('name') }</Text>
           <Text numberOfLines={this.state.open ? 5 : 3} style={[styles.breadText, active && activeStyle.breadLabel]} >{ event.get('description') }</Text>
         </TouchableOpacity>

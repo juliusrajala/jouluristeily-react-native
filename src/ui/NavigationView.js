@@ -13,7 +13,8 @@ const {
 const NavigationView = ({navi, loadView, pushRoute, onNavigateBack}) => {
   const switchTab = loadView;
   const tabs = navi.get('tabs');
-  const tabKey = navi.getIn(['tabs', 'routes', navi.getIn(['tabs','index']), 'key']);
+  const tabIndex = navi.getIn(['tabs','index'], 0);
+  const tabKey = navi.getIn(['tabs', 'routes', tabIndex, 'key']);
   const scenes = navi.get(tabKey);
 
   BackAndroid.addEventListener('hardwareBackPress', () => onNavigateBack())

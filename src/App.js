@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import NavigationView from './ui/NavigationView';
-import AppRouter from './core/AppRouter';
 import { connect } from 'react-redux';
 
 import { View, StyleSheet } from 'react-native';

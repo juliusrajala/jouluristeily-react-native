@@ -31,7 +31,7 @@ class OpeningHoursItem extends Component {
     const hours = location.get('times');
     const deck = location.get('deck');
     const isActive = hours.filter(whenOpen => {
-      return isTimeRelevant(currentTime, whenOpen.get('startTime'), whenOpen.get('endTime'));
+      return isTimeRelevant(currentTime, whenOpen.get('epochStart'), whenOpen.get('epochEnd'));
     }).size > 0;
 
     console.log('isTabActive', isActive);
@@ -44,7 +44,7 @@ class OpeningHoursItem extends Component {
         </View>
         <View style={styles.hoursList}>
         {hours.map((hours, i) => 
-          <Text key={i} style={styles.hoursListItem}>{`${getTimeFromMilliseconds(hours.get('startTime'))} - ${getTimeFromMilliseconds(hours.get('endTime'))}`}</Text> 
+          <Text key={i} style={styles.hoursListItem}>{`${getTimeFromMilliseconds(hours.get('epochStart'))} - ${getTimeFromMilliseconds(hours.get('epochEnd'))}`}</Text> 
         )}
         </View>
         <View style={[styles.dot, isActive && {backgroundColor: '#43A047'}]}></View>
