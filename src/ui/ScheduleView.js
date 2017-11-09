@@ -35,14 +35,14 @@ const ScheduleView = ({ visible, hours, schedules, changeScheduleView, time }) =
     });
 
   const renderHours = () => {
-    console.log('hoursByCategory', hoursByCategory.toJS())
     return hoursByCategory && hoursByCategory.toArray().map((category, i) => (
-        <View key={'hoursCategory'+i}>
-          <Text style={styles.categoryLabel} >{category.first().get('category')} - {time}</Text>
-          { category.toArray().map((location, j) =>
-            <HoursItem currentTime={time && time} key={'hoursitem' + j} location={ location } /> )
-          }
-        </View> ));
+      <View key={'hoursCategory_' + i}>
+        <Text style={styles.categoryLabel}>{category.first().get('category')}</Text>
+        { category.toArray().map((location, j) =>
+          <HoursItem currentTime={time && time} key={'hoursitem' + j} location={ location } /> )
+        }
+      </View>
+    ));
   }
 
   return (
@@ -56,16 +56,16 @@ const ScheduleView = ({ visible, hours, schedules, changeScheduleView, time }) =
       </ScrollView>
 
       { visible === 'schedule' 
-      ? <FloatingActionButton
-        backgroundColor={'firebrick'}
-        action={() => changeScheduleView('hours')}>
-        <Icon style={ styles.fabLabel } name='cart' color='#fff'/>
-      </FloatingActionButton>
-      : <FloatingActionButton
-        backgroundColor={'firebrick'}
-        action={() => changeScheduleView('schedule')}>
-        <Icon style={ styles.fabLabel } name='calendar' color='#fff'/>
-      </FloatingActionButton>
+        ? <FloatingActionButton
+            backgroundColor={'firebrick'}
+            action={() => changeScheduleView('hours')}>
+          <Icon style={ styles.fabLabel } name='cart' color='#fff'/>
+        </FloatingActionButton>
+        : <FloatingActionButton
+            backgroundColor={'firebrick'}
+            action={() => changeScheduleView('schedule')}>
+          <Icon style={ styles.fabLabel } name='calendar' color='#fff'/>
+        </FloatingActionButton>
       }
 
     </View>

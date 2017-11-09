@@ -11,7 +11,7 @@ class OpeningHoursItem extends Component {
   }
 
   componentDidMount() {
-
+    console.log('OpeningHoursItem mounting');
   }
 
   animateToSize(target) {
@@ -25,27 +25,27 @@ class OpeningHoursItem extends Component {
   }
 
   render() {
-    const location = this.props.location;
-    const currentTime = this.props.currentTime;
+    const { location, currentTime } = this.props;
+
     const name = location.get('name');
     const hours = location.get('times');
     const deck = location.get('deck');
+    console.log('Rendering openingHoursItem');
+
     const isActive = hours.filter(whenOpen => {
       return isTimeRelevant(currentTime, whenOpen.get('epochStart'), whenOpen.get('epochEnd'));
     }).size > 0;
 
-    console.log('isTabActive', isActive);
-
     return (
       <Animated.View style={[styles.item, {height: this.state.flexAnim}]}>
         <View style={styles.itemHeader}>
-        <Text style={styles.itemLabel}>{name}</Text>
-        <Text>{`Kansi ${deck}`}</Text>
+          <Text style={styles.itemLabel}>{name}</Text>
+          <Text>{`Kansi ${deck}`}</Text>
         </View>
         <View style={styles.hoursList}>
-        {hours.map((hours, i) => 
-          <Text key={i} style={styles.hoursListItem}>{`${getTimeFromMilliseconds(hours.get('epochStart'))} - ${getTimeFromMilliseconds(hours.get('epochEnd'))}`}</Text> 
-        )}
+          {hours.map((hours, i) => 
+            <Text key={i} style={styles.hoursListItem}>{`${getTimeFromMilliseconds(hours.get('epochStart'))} - ${getTimeFromMilliseconds(hours.get('epochEnd'))}`}</Text> 
+          )}
         </View>
         <View style={[styles.dot, isActive && {backgroundColor: '#43A047'}]}></View>
       </Animated.View>
