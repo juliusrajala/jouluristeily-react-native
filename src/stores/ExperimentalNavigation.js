@@ -1,8 +1,11 @@
-import {fromJS} from 'immutable';
-import {NavigationExperimental} from 'react-native';
-import {getCabinsFromStorage} from './Cabins';
+import { fromJS } from 'immutable';
+import { NavigationExperimental } from 'react-native';
+import { getCabinsFromStorage } from './Cabins';
+import navigationState from './initial/navigationState';
 
-const {StateUtils: NavigationStateUtils} = NavigationExperimental;
+const {
+  StateUtils: NavigationStateUtils
+} = NavigationExperimental;
 
 const navigationActionTypes = {
   push: 'navigationActionTypes.push',
@@ -10,41 +13,6 @@ const navigationActionTypes = {
   switch: 'navigationActionTypes.switch',
   load: 'navigationActionTypes.load'
 };
-
-const initialState = fromJS({
-  tabs: {
-    index: 0,
-    routes: [
-      {key: 'schedule', title: 'SCHEDULE', icon: 'clock'},
-      {key: 'cabins', title: 'CABINS', icon: 'heart'},
-      {key: 'map', title: 'MAP', icon: 'location'},
-      {key: 'menu', title: 'MENU', icon: 'navicon'}
-    ]
-  },
-  schedule: {
-    key: 'schedule',
-    index: 0,
-    routes: [
-      {key: 'scheduleView'},
-      {key: 'openingHours'}
-    ]
-  },
-  cabins: {
-    key: 'cabins',
-    index: 0,
-    routes: [{key: 'cabinsView'}]
-  },
-  map: {
-    key: 'map',
-    index: 0,
-    routes: [{key: 'mapView'}]
-  },
-  menu: {
-    key: 'map',
-    index: 0,
-    routes: [{key: 'menuView'}]
-  }
-});
 
 export const navigationActions = {
   pushRoute(route){
@@ -84,7 +52,7 @@ export const navigationActions = {
 }
 
 // Courtesy of Pepperoni-app-kit
-function navigationReducer(state = initialState, action){
+function navigationReducer(state = navigationState, action){
   switch(action.type){
     case navigationActionTypes.push: {
       const route = action.payload;

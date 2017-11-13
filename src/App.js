@@ -1,12 +1,16 @@
 import React, { PropTypes } from 'react';
-import NavigationView from './ui/NavigationView';
+import AndroidContainer from './AndroidContainer';
+import IOSContainer from './IOSContainer';
 import { connect } from 'react-redux';
 
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Platform } from 'react-native';
 
 const App = () => 
   <View style={styles.app}>
-    <NavigationView />
+    { Platform.OS === 'ios'
+      ? <IOSContainer />
+      : <AndroidContainer />
+    }
   </View>;
 
 const styles = StyleSheet.create({

@@ -1,16 +1,16 @@
-import React, {PropTypes} from 'react';
-import {connect} from 'react-redux';
-import {NavigationExperimental, View, StyleSheet, BackAndroid} from 'react-native';
-import {navigationActions} from '../stores/ExperimentalNavigation';
-import AppRouter from '../core/AppRouter';
-import NavigationBar from './components/NavigationBar';
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { NavigationExperimental, View, StyleSheet, BackAndroid } from 'react-native';
+import { navigationActions } from './stores/ExperimentalNavigation';
+import AppRouter from './core/AppRouter';
+import NavigationBar from './ui/components/NavigationBar';
 
 const {
   CardStack: NavigationCardStack,
   PropTypes: NavigationPropTypes
 } = NavigationExperimental;
 
-const NavigationView = ({navi, loadView, pushRoute, onNavigateBack}) => {
+const AndroidContainer = ({navi, loadView, pushRoute, onNavigateBack}) => {
   const switchTab = loadView;
   const tabs = navi.get('tabs');
   const tabIndex = navi.getIn(['tabs','index'], 0);
@@ -44,7 +44,7 @@ const NavigationView = ({navi, loadView, pushRoute, onNavigateBack}) => {
   );
 }
 
-NavigationView.propTypes = {
+AndroidContainer.propTypes = {
   navi: PropTypes.object,
   switchTab: PropTypes.func,
   pushRoute: PropTypes.func,
@@ -61,17 +61,10 @@ const styles = StyleSheet.create({
 })
 
 export default connect(
-  (state, props) => ({
-    navi: state.navi
-  }),
+  ({ navi }, props) => ({ navi }),
   dispatch => ({
-    loadView(index) {
-      dispatch(navigationActions.loadView(index));
-    },
-    pushRoute(index) {
-      dispatch(navigationActions.pushRoute(index));
-    },
-    onNavigateBack(){
-      dispatch(navigationActions.popRoute());
-    }
-  }))(NavigationView);
+    loadView: index => dispatch(navigationActions.loadView(index)),
+    pushRoute: index => dispatch(navigationActions.pushRoute(index)),
+    onNavigateBack: () => dispatch(navigationActions.popRoute()),
+  })
+)(AndroidContainer);
