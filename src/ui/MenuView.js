@@ -74,7 +74,6 @@ const styles = StyleSheet.create({
   link: {
     fontWeight: '400',
     fontSize: 18,
-    fontFamily: 'bungee',
     color: 'white',
     textShadowOffset: {width: 2, height: 2},
     textShadowRadius: 1,

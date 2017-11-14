@@ -14,10 +14,6 @@ class ScheduleItem extends Component {
     }
   }
 
-  componentDidMount() {
-
-  }
-
   resizeItem() {
     this.setState({open: !this.state.open});
     console.log('Calling for resizeItem', this.state.flexAnim);

@@ -1,17 +1,24 @@
 import React, { PropTypes } from 'react';
 
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
 
 const NaviTab = ({ navItem, action, active }) => {
   const icon = navItem.get('icon');
 
-  return(
+  const styleTitle = title =>
+    title.toLowerCase()
+
+  return (
     <TouchableOpacity
       onPress={ () => action(navItem.get('tab')) }
-      style={ styles.navigationTab }>
-      <Icon style={ styles.navigationIcon } name={ icon } size={ 30 } color={ active ? "#fff" : '#FF8A80' } />
+      style={ styles.navigationTab }
+    >
+      { Platform.OS === 'ios'
+        ? <Text style={ [styles.iosText, active && styles.iosTextActive] }>{ navItem.get('label') }</Text>
+        : <Icon style={ styles.navigationIcon } name={ icon } size={ 30 } color={ active ? "#fff" : '#FF8A80' } />
+      }
       { active && <View style={ styles.activeTab }></View> }
     </TouchableOpacity>
   );
@@ -29,12 +36,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-around'
   },
-  navigationLabel: {
+  iosText: {
     fontSize: 12,
     textAlign: 'center',
+    fontWeight: '600',
     justifyContent: 'flex-start',
     color: 'white',
-    fontWeight: '200'
+  },
+  iosTextActive: {
+    fontWeight: '900',
   },
   navigationIcon: {
     fontSize: 40,

@@ -1,7 +1,8 @@
 import React, {PropTypes} from 'react';
-import {TouchableNativeFeedback, View, StyleSheet} from 'react-native';
+import {TouchableNativeFeedback, View, StyleSheet, Platform} from 'react-native';
 
 const FloatingActionButton = ({action, backgroundColor, target, children}) => {
+  if (Platform.OS === 'ios') return null;
   return (
     <TouchableNativeFeedback
       onPress={() => action(target)}

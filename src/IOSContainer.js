@@ -2,29 +2,31 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { View, StyleSheet, Platform } from 'react-native';
 import NavigationBar from './ui/components/NavigationBar';
-import AppRouter from './core/AppRouter';
+import { iosRouter } from './core/AppRouter';
 import { navigationActions } from './stores/ExperimentalNavigation';
 
 const navigationActionsToProps = (dispatch, props) => ({
 
 });
 
-const IOSContainer = (props) => {
-  const { navi } = props;
+const IosContainer = (props) => {
+  const { navi, switchTab } = props;
   const tabs = navi.get('tabs');
   const tabIndex = tabs.get('index', 0);
+  const routes = tabs.get('routes');
 
   const renderView = (currentItem) =>
     <View style={styles.sceneContainer}>
-        {AppRouter(currentItem)}
+        { iosRouter(currentItem) }
     </View>;
 
   return (
     <View style={styles.container}>
+      { renderView(routes.get(tabIndex)) }
       <NavigationBar
         tabs={tabs}
         currentTabIndex={tabIndex}
-        switchTab={(tab) => console.log(tab)}
+        switchTab={switchTab}
       />
     </View>
   );
@@ -42,4 +44,7 @@ const styles = StyleSheet.create({
 
 export default connect(
   ({ navi }, props) => ({ navi }),
-)(IOSContainer)
+  dispatch => ({
+    switchTab: index => dispatch(navigationActions.loadView(index)),    
+  })
+)(IosContainer)

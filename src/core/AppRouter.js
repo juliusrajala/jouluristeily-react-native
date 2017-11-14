@@ -1,26 +1,33 @@
 import React from 'react';
 
-import LandingView from '../ui/LandingView';
 import CabinView from '../ui/CabinView';
 import ScheduleView from '../ui/ScheduleView';
+import IosSchedule from '../ui/ios/iosSchedule';
 import MapView from '../ui/MapView';
 import MenuView from '../ui/MenuView';
 
+export const iosRouter = (route, props) => {
+  console.log('Does this get called?', route.toJS());
+  const key = route.get('key');
+  switch (key) {
+    case 'cabins': return <CabinView props />;
+    case 'maps': return <MapsView props />;
+    case 'menu': return <MenuView props />;
+    case 'schedule': return <IosSchedule props />; 
+    default: return <IosSchedule props />;
+  }
+}
+
 export default function AppRouter(props){
   const key = props.scene.route.key;
-  console.log('key', key, props.scene);
   switch(key){
     case 'cabinsView':
-      console.log('Moving to cabin view');
       return <CabinView props />
     case 'scheduleView':
-      console.log('Moving to schedule view');
       return <ScheduleView props />
     case 'mapView':
-      console.log('Moving to map view');
       return <MapView props />
     case 'menuView':
-      console.log('Moving to menu view');
       return <MenuView props />
     default:
       return <ScheduleView props />;

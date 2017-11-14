@@ -19,13 +19,10 @@ const AndroidContainer = ({navi, loadView, pushRoute, onNavigateBack}) => {
 
   BackAndroid.addEventListener('hardwareBackPress', () => onNavigateBack())
 
-  const renderScene = (sceneProps) => {
-    return (
-      <View style={styles.sceneContainer}>
-        {AppRouter(sceneProps)}
-      </View>
-    );
-  }
+  const renderScene = (sceneProps) =>
+    <View style={styles.sceneContainer}>
+      {AppRouter(sceneProps)}
+    </View>
 
   return (
     <View style={styles.container}>

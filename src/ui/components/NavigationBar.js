@@ -12,10 +12,13 @@ const NavigationBar = ({ tabs, currentTabIndex, switchTab }) => {
   return (
     <View style={ styles.navigation }>
       { routes.toArray().map((tab, i) => 
-          <NaviTab key={i} active={ i === currentTabIndex } 
-            navItem={tab} action={() => switchTab(i)} />
-        )
-      }
+        <NaviTab
+          key={i}
+          active={ i === currentTabIndex } 
+          navItem={tab}
+          action={() => switchTab(i)}
+        />
+      ) }
     </View>
   );
 }
