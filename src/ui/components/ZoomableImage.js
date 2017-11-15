@@ -4,7 +4,7 @@ import { ScrollView, StyleSheet, Image, TouchableOpacity } from 'react-native';
 class ZoomableImage extends Component {
   static defaultProps = {
     doAnimateZoomReset: false,
-    maximumZoomScale: 3,
+    maximumZoomScale: 4,
     minimumZoomScale: 1,
     zoomHeight: 100,
     zoomWidth: 100,
@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: 'contain',
     width: 400,
+    height: 100,
   }
 })
 

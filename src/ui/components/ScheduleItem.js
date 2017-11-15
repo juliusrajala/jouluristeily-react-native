@@ -116,9 +116,9 @@ const styles = StyleSheet.create({
   dot: {
     width: 20,
     height: 20,
-    backgroundColor: '#ECEFF1',
+    backgroundColor: '#eceff1',
     position: 'absolute',
-    borderColor: '#ECEFF1',
+    borderColor: '#fff',
     borderWidth: 2,
     top: 40,
     left: 58,
