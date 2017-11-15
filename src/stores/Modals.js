@@ -22,8 +22,6 @@ const initialState = fromJS({
 function modals(state=initialState, action){
   switch(action.type){
     case modalActionTypes.open_modal:
-      console.log('modalStore', state.toJS())
-      console.log('payload', action.payload)
       return state.setIn(['modals', action.payload], true);
     case modalActionTypes.close_modal:
       return state.setIn(['modals', action.payload], false);

@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react';
-import { View, ScrollView, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { mapActions } from '../stores/Maps';
+import ZoomableImage from './components/ZoomableImage';
 
 const MapView = ({ maps, switchMap }) => {
   const readyMaps = maps.toJS();
@@ -15,40 +16,34 @@ const MapView = ({ maps, switchMap }) => {
       restaurants: require('./images/map_restaurants.png')
   }
 
+  const mapSource = require('./images/map.png');
+
   return (
     <View style={ styles.container }>
-      <View style={ styles.tags }>
-        <TouchableOpacity
-          onPress={() => switchMap(mapTags.shops)}>
-          <Text style={ [styles.tag, selected === mapTags.shops && styles.activeTag] }>Ostokset</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => switchMap(mapTags.bars)}>
-          <Text style={ [styles.tag, selected === mapTags.bars && styles.activeTag] }>Baarit</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => switchMap(mapTags.restaurants)}>
-          <Text style={ [styles.tag, selected === mapTags.restaurants && styles.activeTag] }>Ravintolat</Text>
-        </TouchableOpacity>
-      </View>
+    
+    <View style={ styles.mapHeader }>
+      <Text style={ styles.mapTitle }>Laivakartta</Text>
+    </View>
+      <ZoomableImage imageSource={mapSource} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#2f2f2f',
+    backgroundColor: '#ECEFF1',
     flex: 1,
     bottom: 0,
     left: 0,
     right: 0,
     top: 0
   },
-  map: {
-    backgroundColor: '#2f2f2f'
+  mapContainer: {
+    flex: 1,
+    flexDirection: 'column',
   },
   tags: {
-    height: 48,
+    padding: 30,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center'
@@ -56,12 +51,22 @@ const styles = StyleSheet.create({
   tag: {
     fontWeight: '400',
     fontSize: 18,
-    fontFamily: 'bungee',
-    color: 'gainsboro'
+    color: '#fff'
   },
   activeTag: {
-    color: '#ffea00'
-  }
+    fontWeight: '600',
+  },
+  mapHeader: {
+    justifyContent: 'space-around',
+    height: 100,
+    elevation: 4
+  },
+  mapTitle: {
+    color: 'firebrick',
+    textAlign: 'center',
+    fontWeight: '600',
+    fontSize: 20
+  },
 });
 
 MapView.propTypes = {

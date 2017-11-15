@@ -3,15 +3,15 @@ import React from 'react';
 import CabinView from '../ui/CabinView';
 import ScheduleView from '../ui/ScheduleView';
 import IosSchedule from '../ui/ios/iosSchedule';
+import IosCabins from '../ui/ios/iosCabins';
 import MapView from '../ui/MapView';
 import MenuView from '../ui/MenuView';
 
 export const iosRouter = (route, props) => {
-  console.log('Does this get called?', route.toJS());
   const key = route.get('key');
   switch (key) {
-    case 'cabins': return <CabinView props />;
-    case 'maps': return <MapsView props />;
+    case 'cabins': return <IosCabins props />;
+    case 'map': return <MapView props />;
     case 'menu': return <MenuView props />;
     case 'schedule': return <IosSchedule props />; 
     default: return <IosSchedule props />;

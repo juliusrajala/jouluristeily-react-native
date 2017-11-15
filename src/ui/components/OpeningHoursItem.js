@@ -10,10 +10,6 @@ class OpeningHoursItem extends Component {
     }
   }
 
-  componentDidMount() {
-    console.log('OpeningHoursItem mounting');
-  }
-
   animateToSize(target) {
     Animated.timing(
       this.state.flexAnim, {
@@ -30,7 +26,6 @@ class OpeningHoursItem extends Component {
     const name = location.get('name');
     const hours = location.get('times');
     const deck = location.get('deck');
-    console.log('Rendering openingHoursItem');
 
     const isActive = hours.filter(whenOpen => {
       return isTimeRelevant(currentTime, whenOpen.get('epochStart'), whenOpen.get('epochEnd'));
@@ -61,7 +56,7 @@ OpeningHoursItem.propTypes = {
 const styles = StyleSheet.create({
   item: {
     borderLeftColor: 'firebrick',
-    borderLeftWidth: 5,
+    borderLeftWidth: 10,
     padding: 5,
     flexDirection: 'row',
     left: 0,
@@ -70,11 +65,10 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     backgroundColor: 'white',
     margin: 2,
-    marginTop: 0,
   },
   itemLabel: {
-    fontWeight: '900',
-    fontSize: 16,
+    fontWeight: '600',
+    fontSize: 14,
     color: '#2f2f2f'
   },
   itemHeader: {
@@ -88,7 +82,7 @@ const styles = StyleSheet.create({
   },
   hoursListItem: {
     textAlign: 'center',
-    fontWeight: '900',
+    fontWeight: '600',
     height: 20
   },
   dot: {

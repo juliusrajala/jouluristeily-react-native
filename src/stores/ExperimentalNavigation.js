@@ -26,7 +26,6 @@ export const navigationActions = {
   },
   loadView(index){
     if(index === 1){
-      console.log('Moving to CabinView, loading cabins first');
       return dispatch => {
         dispatch(getCabinsFromStorage())
           .then(response => {
@@ -37,7 +36,6 @@ export const navigationActions = {
           })
       }
     }
-    console.log('index', index);
     return {
       type: navigationActionTypes.switch,
       payload: index
@@ -78,10 +76,8 @@ function navigationReducer(state = navigationState, action){
       const tabKey = tabs.getIn(['routes', tabs.get('index')]).get('key');
       const scenes = state.get(tabKey).toJS();
       const nextScenes = NavigationStateUtils.pop(scenes);
-      console.log('nextScenes', nextScenes)
 
       if(scenes !== nextScenes) {
-        console.log('Changing state via back-button');
         return state.set(tabKey, fromJS(nextScenes));
       }
       return state;

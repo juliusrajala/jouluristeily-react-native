@@ -8,7 +8,6 @@ import Icon from 'react-native-vector-icons/EvilIcons';
 
 const NavigationBar = ({ tabs, currentTabIndex, switchTab }) => {
   const routes = tabs.get('routes');
-  console.log('routes', routes.toJS())
   return (
     <View style={ styles.navigation }>
       { routes.toArray().map((tab, i) => 

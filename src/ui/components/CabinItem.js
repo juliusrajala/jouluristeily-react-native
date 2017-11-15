@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
 const CabinItem = ({cabinNumber, cabinDescription, removeCabin}) => {
@@ -8,7 +8,10 @@ const CabinItem = ({cabinNumber, cabinDescription, removeCabin}) => {
       <View style={ styles.cabinListItemActions}>
         <TouchableOpacity
           onPress={() => removeCabin(cabinNumber)} >
-          <Icon style={ styles.cabinListItemActionButton} name="close" size={40} color="#2f2f2f" />
+          { Platform.OS === 'ios'
+            ? <Text>Poista</Text>
+            : <Icon style={ styles.cabinListItemActionButton} name="close" size={40} color="#2f2f2f" />
+          }
         </TouchableOpacity>
       </View>
       <Text style={styles.cabinListItemLabel}>

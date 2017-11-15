@@ -26,11 +26,6 @@ const ScheduleView = ({ visible, changeScheduleView }) => {
 
   return (
     <View style={ styles.schedules } >
-      <View style={ styles.schedulesHeader }>
-        <Text style={ styles.schedulesTitle }>
-          {visible === 'schedule' ? 'Aikataulu' : 'Aukioloajat'}
-        </Text>
-      </View>
       <ScheduleTimeline />
       { renderFAB() }
     </View>

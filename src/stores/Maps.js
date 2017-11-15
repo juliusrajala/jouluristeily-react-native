@@ -23,10 +23,8 @@ const initialState = fromJS({
 });
 
 function maps(state=initialState, action) {
-  console.log(action);
   switch(action.type) {
     case mapActionsTypes.switch_map:
-      console.log('action payload', action.payload);
       // If the same tag is already selected, select the default, otherwise select the tag:
       return state.set('selected',
         state.get('selected') === action.payload

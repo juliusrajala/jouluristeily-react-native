@@ -11,12 +11,8 @@ import {
   StyleSheet
 } from 'react-native';
 
-// Props:
-// modalId, visible, action, title, description, children
-
 const CruiseModal = React.createClass({
   componentWillMount(){
-    console.log(this.props);
   },
   getInitialState(){
     return {

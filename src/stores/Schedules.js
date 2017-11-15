@@ -9,7 +9,6 @@ export const scheduleActions = {
   fetchEvents(){
     fetch(EVENT_URL)
       .then(response => {
-        console.log(response);
         return response;
       })
       .then(response => {

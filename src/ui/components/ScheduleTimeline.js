@@ -67,14 +67,14 @@ const styles = StyleSheet.create({
     flex: 1,
     right: 0,
     left: 0,
-    backgroundColor: '#2f2f2f'
+    backgroundColor: '#ECEFF1'
   },
   categoryLabel: {
     fontSize: 20,
-    color: 'white',
+    color: '#363636',
     margin: 5,
     marginLeft: 12,
-    fontWeight: '900'
+    fontWeight: '600'
   },
 });
 

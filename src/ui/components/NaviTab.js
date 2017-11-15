@@ -37,14 +37,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   iosText: {
-    fontSize: 12,
+    fontSize: 14,
     textAlign: 'center',
-    fontWeight: '600',
+    fontWeight: '200',
     justifyContent: 'flex-start',
     color: 'white',
   },
   iosTextActive: {
-    fontWeight: '900',
+    fontWeight: '600',
   },
   navigationIcon: {
     fontSize: 40,

@@ -7,40 +7,18 @@ import Icon from 'react-native-vector-icons/EvilIcons';
 import ScheduleTimeline from '../components/ScheduleTimeline';
 import { changeScheduleView } from '../../stores/Schedules';
 
-const scheduleOptions = [
-  { label: 'Aikataulut', type: 'schedule' },
-  { label: 'Aukioloajat', type: 'hours' }
-];
-
-const ScheduleNavigation = (props) => {
-  const { selectView, visible } = props;
-  return (
-    <View style={ styles.schedulesHeader }>
-      { scheduleOptions.map(item => 
-        <TouchableOpacity
-          key={item.type}
-          style={ styles.scheduleNavi }
-          onPress={() => selectView(item.type) }
-        >
-          <Text style={ [styles.schedulesTitle, visible === item.type && styles.visibleTitle ] }>{item.label}</Text>
-        </TouchableOpacity>
-      ) }
-    </View>
-  );
-}
-
-ScheduleNavigation.propTypes = {
-  selectView: PropTypes.func.isRequired,
-};
-
 
 const iosSchedule = ({ visible, changeScheduleView }) => {
+  const buttonLabel = visible !== 'schedule' ? 'Aikataulut' : 'Aukioloajat';
+  const buttonTarget = visible !== 'schedule' ? 'schedule' : 'hours';
   return (
     <View style={ styles.schedules } >
-      <ScheduleNavigation
-        selectView={item => changeScheduleView(item)}
-        visible={visible}
-      />
+      <View style={styles.linkContainer}>
+        <TouchableOpacity
+          onPress={() => changeScheduleView(buttonTarget)}>
+          <Text style={ styles.link }>{buttonLabel}</Text>
+        </TouchableOpacity>
+      </View>
       <ScheduleTimeline />
     </View>
   );
@@ -66,20 +44,36 @@ const styles = StyleSheet.create({
     height: 70,
     elevation: 4,
     flexDirection: 'row',
-    borderColor: '#2f2f2f',
-    borderBottomWidth: 5,
-
+    borderBottomWidth: 3,
+    borderColor: '#363636',
   },
   scheduleNavi: {
     flex: 1,
-    justifyContent: 'space-around',    
-
+    justifyContent: 'space-around',
+  },
+  linkContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 100,
+    backgroundColor: '#ECEFF1'
+  },
+  link: {
+    fontWeight: '600',
+    textAlign: 'center',
+    width: 192,
+    padding: 10,
+    fontSize: 20,
+    color: 'firebrick',
+    borderWidth: 1,
+    borderColor: 'firebrick',
+    margin: 5,
+    borderRadius: 20,
   },
   schedulesTitle: {
     color: 'white',
     textAlign: 'center',
-    fontWeight: '400',
-    fontSize: 20
+    fontWeight: '200',
+    fontSize: 16
   },
   visibleTitle: {
     fontWeight: '600',

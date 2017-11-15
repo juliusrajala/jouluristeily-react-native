@@ -16,7 +16,6 @@ class ScheduleItem extends Component {
 
   resizeItem() {
     this.setState({open: !this.state.open});
-    console.log('Calling for resizeItem', this.state.flexAnim);
     this.state.flexAnim._value === 100 ? this.animateToSize(150, 65) : this.animateToSize(100, 40);
   }
 
@@ -64,10 +63,10 @@ ScheduleItem.propTypes = {
 
 const activeStyle = StyleSheet.create({
   dot: {
-    backgroundColor: 'firebrick' 
+    backgroundColor: 'indianred'
   },
   times: {
-    backgroundColor: 'firebrick'
+    backgroundColor: 'indianred'
   },
   hourLabel: {
     color: 'white'
@@ -83,25 +82,24 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     elevation: 3,
-    borderRadius: 2
   },
   times: {
     justifyContent: 'space-around',
     width: 70,
     flexDirection: 'column',
     backgroundColor: 'white',
-    borderColor: '#2f2f2f',
+    borderColor: '#ECEFF1',
     borderRightWidth: 4
   },
   bread: {
     flex: 1,
     backgroundColor: 'white',
-    borderColor: 'lightgrey',
-    borderTopWidth: 1
+    borderColor: '#ECEFF1',
+    borderBottomWidth: 2
   },
   hourLabel: {
     textAlign: 'center',    
-    fontWeight: '900',
+    fontWeight: '600',
     maxHeight: 20
   },
   breadLabel: {
@@ -109,7 +107,7 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingRight: 10,
     paddingBottom: 5,
-    fontWeight: '900'
+    fontWeight: '600'
   },
   breadText: {
     paddingLeft: 10,
@@ -118,9 +116,9 @@ const styles = StyleSheet.create({
   dot: {
     width: 20,
     height: 20,
-    backgroundColor: 'indianred',
+    backgroundColor: '#ECEFF1',
     position: 'absolute',
-    borderColor: '#2f2f2f',
+    borderColor: '#ECEFF1',
     borderWidth: 2,
     top: 40,
     left: 58,

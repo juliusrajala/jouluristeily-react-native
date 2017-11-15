@@ -15,26 +15,26 @@ import Icon from 'react-native-vector-icons/EvilIcons';
 const MenuView = ({ menu }) => {
   // const readyMenu = menu.toJS();
   const images = {
-      afterlecture: require('./images/afterlecture.png'),
-      leima: require('./images/leima.png'),
+      hero: require('./images/leima.png'),
       loimu: require('./images/loimu.png')
   }
 
   return (
     <View style={ styles.menuView }>
-      <ScrollView style={ {flex: 1} } contentContainerStyle={ styles.container }>
-        <Image style={ styles.leima } source={ images.leima }/>
+      <View style={ styles.heroContainer }>
+        <Image style={ styles.hero } source={ images.hero }/>
+      </View>
+      <ScrollView contentContainerStyle={ styles.container }>
         <TouchableOpacity
           style={ styles.instagram }
           onPress={() => Linking.openURL('https://www.instagram.com/explore/tags/jouluristeily/')}>
-          <Text style={ styles.link }>#jouluristeily</Text>
+          <Text style={ styles.link }>Instagram</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => Linking.openURL('http://jouluristeily.com/')}>
-          <Text style={ styles.link }>jouluristeily.net</Text>
+          <Text style={ styles.link }>Jouluristeily.com</Text>
         </TouchableOpacity>
         <Image style={ styles.loimu } source={ images.loimu }/>
-        <Image style={ styles.afterlecture } source={ images.afterlecture }/>
       </ScrollView>
     </View>
   );
@@ -42,7 +42,7 @@ const MenuView = ({ menu }) => {
 
 const styles = StyleSheet.create({
   menuView: {
-    backgroundColor: '#363636',
+    backgroundColor: '#fff',
     flex: 1,
     bottom: 0,
     left: 0,
@@ -51,12 +51,21 @@ const styles = StyleSheet.create({
   },
   container: {
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    flexDirection: 'column',
+    flex: 1,
+    padding: 30,
   },
-  leima: {
-    marginTop: 18,
-    width: 192,
-    height: 192,
+  heroContainer: {
+    height: 300,
+    padding: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#ECEFF1'
+  },
+  hero: {
+    width: 232,
+    height: 232,
     resizeMode: 'contain'
   },
   instagram: {
@@ -66,23 +75,24 @@ const styles = StyleSheet.create({
   },
   linkIcon: {
     fontSize: 40,
-    color: 'gainsboro',
-    textShadowOffset: {width: 2, height: 2},
-    textShadowRadius: 1,
-    textShadowColor: '#503a3a'
+    color: 'indianred',
   },
   link: {
-    fontWeight: '400',
-    fontSize: 18,
-    color: 'white',
-    textShadowOffset: {width: 2, height: 2},
-    textShadowRadius: 1,
-    textShadowColor: '#503a3a'
+    fontWeight: '600',
+    textAlign: 'center',
+    width: 192,
+    padding: 10,
+    fontSize: 20,
+    color: 'indianred',
+    borderWidth: 1,
+    borderColor: 'indianred',
+    margin: 5,
+    borderRadius: 20,
   },
   loimu: {
     marginTop: 18,
-    width: 256,
-    height: 96,
+    width: 232,
+    height: 100,
     resizeMode: 'contain'
   },
   afterlecture: {

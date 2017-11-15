@@ -1,15 +1,14 @@
 import React, {Component, PropTypes } from 'react';
-import { bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
-import {View, Text, ScrollView, StyleSheet} from 'react-native';
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
-import { modalActions } from '../stores/Modals';
-import { cabinActions, getCabinsFromStorage } from '../stores/Cabins';
+import { modalActions } from '../../stores/Modals';
+import { cabinActions, getCabinsFromStorage } from '../../stores/Cabins';
 
-import CabinItem from './components/CabinItem';
-import FloatingActionButton from './components/FloatingActionButton';
-import CruiseModal from './components/CruiseModal';
+import CabinItem from '../components/CabinItem';
+import FloatingActionButton from '../components/FloatingActionButton';
+import CruiseModal from '../components/CruiseModal';
 
 const CabinView = ({ cabins, modals, openModal, addCabin, removeCabin, getCabins}) => {
   const cabinsReady = cabins.get('ready');
@@ -29,7 +28,7 @@ const CabinView = ({ cabins, modals, openModal, addCabin, removeCabin, getCabins
     </ScrollView>;
 
   const renderPlaceHolder = () => 
-    <View style={styles.cabinViewPlaceholder}>
+    <View style={styles.placeholderContainer}>
       <Text style={styles.placeholderText}>
         Sinulla ei ole tallennettuja hyttejä. Voit lisätä hyttejä painamalla nappia.
       </Text>
@@ -37,16 +36,16 @@ const CabinView = ({ cabins, modals, openModal, addCabin, removeCabin, getCabins
 
   return (
     <View style={styles.cabinView}>
+      <View style={styles.linkContainer}>
+        <TouchableOpacity
+          onPress={() => openModal(addCabinModalId)}>
+          <Text style={ styles.link }>Lisää hytti</Text>
+        </TouchableOpacity>
+      </View>
 
       { cabinsReady && savedCabins.size > 0
         ? renderCabins()
         : renderPlaceHolder() }
-      
-      <FloatingActionButton 
-        action={() => openModal(addCabinModalId)}
-        backgroundColor="firebrick">
-        <Icon style={ styles.addButtonLabel } name="plus" color="#fff"/>
-      </FloatingActionButton>
 
       <CruiseModal
         modalId={addCabinModalId}
@@ -68,14 +67,32 @@ CabinView.propTypes = {
 const styles = StyleSheet.create({
   cabinView: {
     flex: 1,
-    backgroundColor: '#2f2f2f'
+    backgroundColor: '#fff'
+  },
+  linkContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 100,
+    backgroundColor: '#ECEFF1'
+  },
+  link: {
+    fontWeight: '600',
+    textAlign: 'center',
+    width: 192,
+    padding: 10,
+    fontSize: 20,
+    color: 'firebrick',
+    borderWidth: 1,
+    borderColor: 'firebrick',
+    margin: 5,
+    borderRadius: 20,
   },
   addButtonLabel: {
     justifyContent: 'center',
     fontSize: 50,
     fontWeight: '200',
   },
-  cabinViewPlaceholder: {
+  placeholderContainer: {
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1
@@ -85,7 +102,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 16,
     fontWeight: '200',
-    color: 'gainsboro'
+    color: '#363636'
   },
   cabinList: {
     flex: 1,
